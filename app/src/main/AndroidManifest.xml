@@ -31,5 +31,5 @@
             android:name=".LoginActivity"
             android:exported="false" />
     </application>
-
+    <!--develop-->
 </manifest>
