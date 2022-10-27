@@ -3,6 +3,7 @@ package com.example.cadenadefavors
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cadenadefavors.databinding.ActivityRegisterBinding
@@ -25,8 +26,6 @@ class RegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        Log.d("TAG", "Cuack0")
-
         // Setup
         setup()
     }
@@ -43,15 +42,19 @@ class RegisterActivity : AppCompatActivity() {
                     binding.passwordEditText.text.toString().trim()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Log.d("TAG", "Cuack2")
                         if (userName.length > 1) nameUser(userName)
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
-                        Log.d("TAG", "Cuack3")
                         Log.w("TAG", "createUserWithEmail:failure", it.exception)
                         showAlert()
                     }
                 }
+            } else {
+                Toast.makeText(
+                    baseContext,
+                    "Els camps correu i contrasenya no poden estar buits",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 

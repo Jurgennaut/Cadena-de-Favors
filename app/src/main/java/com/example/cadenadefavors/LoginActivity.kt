@@ -3,6 +3,7 @@ package com.example.cadenadefavors
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cadenadefavors.databinding.ActivityLoginBinding
@@ -30,22 +31,34 @@ class LoginActivity : AppCompatActivity() {
         title = "Autenticació"
 
         binding.login.setOnClickListener {
-            Log.d("TAG", "Cuack")
             if (binding.emailEditTextLogIn.text.isNotEmpty() && binding.passwordEditTextLogIn.text.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(
-                    binding.emailEditTextLogIn.text.toString(),
-                    binding.passwordEditTextLogIn.text.toString()
+                    binding.emailEditTextLogIn.text.toString().trim(),
+                    binding.passwordEditTextLogIn.text.toString().trim()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Log.d("TAG", "Cuack2")
+                        //Log.d("TAG", "Cuack2")
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
-                        Log.d("TAG", "Cuack3")
                         Log.w("TAG", "signInUserWithEmailAndPassword:failure", it.exception)
                         showAlert()
                     }
                 }
+            } else {
+                Toast.makeText(
+                    baseContext,
+                    "Els camps correu i contrasenya no poden estar buits",
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
+
+        binding.registerLink.setOnClickListener {
+            showRegister()
+        }
+
+        binding.passwordRecovery.setOnClickListener {
+            showPasswdRecov()
         }
 
     }
@@ -60,10 +73,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showHome(email: String, provider: ProviderType) {
-        val homeIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("email", email)
-            putExtra("provider", provider.name)
-        }
+        val homeIntent = Intent(this, MainActivity::class.java)
+        startActivity(homeIntent)
+    }
+
+    private fun showRegister() {
+        val homeIntent = Intent(this, RegisterActivity::class.java)
+        startActivity(homeIntent)
+    }
+
+    private fun showPasswdRecov() {
+        val homeIntent = Intent(this, RecoverPasswordActivity::class.java)
         startActivity(homeIntent)
     }
 }
