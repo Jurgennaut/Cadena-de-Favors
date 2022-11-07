@@ -23,4 +23,9 @@
     <string name="transfer">Transferir</string>
     <string name="generic_name">Nom</string>
     <string name="add_image">Afegeix una imatge</string>
+    <string name="offer_image">Imatge de la oferta</string>
+    <string name="offer_title">Títol de l\'oferta</string>
+    <string name="offer_description">Descripció de l\'oferta</string>
+    <string name="offer_price">Preu</string>
+    <string name="offer_owner">Propietari de l\'oferta</string>
 </resources>
