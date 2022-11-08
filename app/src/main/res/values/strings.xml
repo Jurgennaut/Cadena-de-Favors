@@ -28,4 +28,7 @@
     <string name="offer_description">Descripció de l\'oferta</string>
     <string name="offer_price">Preu</string>
     <string name="offer_owner">Propietari de l\'oferta</string>
+    <string name="fer_una_transferencia">Fer una transferencia</string>
+    <string name="logout">Logout</string>
+    <string name="el_meu_perfil">El meu perfil</string>
 </resources>

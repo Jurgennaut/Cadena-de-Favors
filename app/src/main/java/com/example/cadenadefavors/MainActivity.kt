@@ -1,6 +1,9 @@
 package com.example.cadenadefavors
 
 import android.os.Bundle
+import android.view.MenuInflater
+import android.view.View
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.models.Offer
@@ -24,6 +27,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(){
+        binding.button6.setOnClickListener{
+            showPopup(binding.button6)
+        }
+
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
         binding.rvOffers.setHasFixedSize(true)
 
@@ -58,5 +65,12 @@ class MainActivity : AppCompatActivity() {
         ))
 
         return offers
+    }
+
+    private fun showPopup(v: View){
+        val popup=PopupMenu(this,v)
+        val inflater:MenuInflater=popup.menuInflater
+        inflater.inflate(R.menu.menu_principal, popup.menu)
+        popup.show()
     }
 }
