@@ -40,6 +40,7 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
                 binding.txtOwner.text = "@"+this.offerOwner
                 binding.txtPrice.text= "Preu: "+ (this.offerPrice).toString()+" favos."
                 binding.imgOffer.load(this.offerImage)
+                binding.txtOfferCategory.text="Categoria: "+this.offerCategory
                 /*
                  //Monstrar la imatge des de Storage de Firebase
                  val storageRef = FirebaseStorage.getInstance().reference

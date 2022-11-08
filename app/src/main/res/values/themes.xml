@@ -18,5 +18,9 @@
         <item name="android:backgroundTint">@color/green_button</item>
     </style>
 
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/green_background</item>
+    </style>
+
 
 </resources>
