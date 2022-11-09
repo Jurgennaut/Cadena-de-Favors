@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "498782454051",
+    "project_id": "cadena-de-favores-fa103",
+    "storage_bucket": "cadena-de-favores-fa103.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498782454051:android:70f3da0224a3636b7c0c96",
+        "android_client_info": {
+          "package_name": "com.example.cadenadefavors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498782454051-ej42tktr5v4ipc53ijak4vlar2qs35ed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8HJL4ldLVyfB0sQMLYCgT5p3JdImCbbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498782454051-ej42tktr5v4ipc53ijak4vlar2qs35ed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
