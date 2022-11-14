@@ -5,7 +5,6 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.models.Offer
 import com.example.cadenadefavors.databinding.ActivityMainBinding
@@ -22,8 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(1000)
-        installSplashScreen()
         binding =ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView()
