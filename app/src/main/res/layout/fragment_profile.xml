@@ -98,4 +98,12 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_username"
         app:layout_constraintVertical_bias="1.0" />
 
+    <Button
+        android:id="@+id/addOfferBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Afegir Oferta"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="218dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
