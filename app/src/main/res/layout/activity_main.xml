@@ -22,5 +22,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/provisional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Navegació Fragments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+        <Button
+            android:id="@+id/provisional2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prova la càmera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/provisional" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

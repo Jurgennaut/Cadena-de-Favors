@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cadenadefavors.databinding.FragmentProfileBinding
+import androidx.navigation.findNavController as findNavController1
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -121,6 +122,8 @@ class ProfileFragment : Fragment() {
     private fun setup() {
         binding.addOfferBtn.setOnClickListener(){
             val action = ProfileFragmentDirections.actionProfileFragmentToBlankFragment()
+            //view.findNavController1().navigate(action)
+
         }
     }
 

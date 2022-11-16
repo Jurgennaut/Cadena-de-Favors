@@ -1,5 +1,6 @@
 package com.example.cadenadefavors
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
@@ -32,6 +33,14 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView(){
         binding.button6.setOnClickListener{
             showPopup(binding.button6)
+        }
+
+        binding.provisional.setOnClickListener{
+            showHome2()
+        }
+
+        binding.provisional2.setOnClickListener{
+            showRegister()
         }
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
@@ -75,5 +84,16 @@ class MainActivity : AppCompatActivity() {
         val inflater:MenuInflater=popup.menuInflater
         inflater.inflate(R.menu.menu_principal, popup.menu)
         popup.show()
+    }
+
+    //Provisional
+    private fun showHome2() {
+        val homeIntent = Intent(this, MainActivity2::class.java)
+        startActivity(homeIntent)
+    }
+
+    private fun showRegister() {
+        val homeIntent = Intent(this, RegisterActivity::class.java)
+        startActivity(homeIntent)
     }
 }
