@@ -3,14 +3,10 @@ package com.example.cadenadefavors
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.junit.Test
 
-class NaviationTests {
+class NavigationTests {
 
     @Test
     fun navigate_to_addOffer_nav_component() {
@@ -24,6 +20,111 @@ class NaviationTests {
         letterListScenario.onFragment { fragment ->
 
             navController.setGraph(R.navigation.nav_graph)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
