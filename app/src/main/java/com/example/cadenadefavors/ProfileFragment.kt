@@ -26,10 +26,9 @@ private var isLinearLayoutManager = true
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class ProfileFragment : Fragment() {
         val view = binding.root
         return view
 
-        setup()
+
     }
 
 
@@ -52,6 +51,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //recyclerView = binding.recyclerView
         //chooseLayout()
+        setup()
     }
 
     override fun onDestroyView() {
@@ -121,8 +121,9 @@ class ProfileFragment : Fragment() {
 
     private fun setup() {
         binding.addOfferBtn.setOnClickListener(){
-            val action = ProfileFragmentDirections.actionProfileFragmentToBlankFragment()
-            //view.findNavController1().navigate(action)
+            val action = ProfileFragmentDirections.actionProfileFragmentToAddOfferFragment()
+
+            this.view?.findNavController1()?.navigate(action)
 
         }
     }

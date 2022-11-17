@@ -6,17 +6,17 @@
     app:startDestination="@id/profileFragment">
 
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.cadenadefavors.BlankFragment"
-        android:label="fragment_addoffer"
-        tools:layout="@layout/fragment_addoffer" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.cadenadefavors.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_blankFragment"
-            app:destination="@id/blankFragment" />
+            android:id="@+id/action_profileFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addOfferFragment"
+        android:name="com.example.cadenadefavors.AddOfferFragment"
+        android:label="fragment_addoffer"
+        tools:layout="@layout/fragment_addoffer" />
 </navigation>
