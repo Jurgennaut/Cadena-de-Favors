@@ -1,5 +1,6 @@
 package com.example.cadenadefavors
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -7,7 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
+import com.example.cadenadefavors.adapters.OpinionRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentProfileBinding
+import com.example.cadenadefavors.models.Offer
+import com.example.cadenadefavors.models.Opinion
 import androidx.navigation.findNavController as findNavController1
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,6 +22,8 @@ private const val ARG_PARAM2 = "param2"*/
 
 private var _binding: FragmentProfileBinding? = null
 private val binding get() = _binding!!
+
+private val myAdapter: OpinionRecyclerAdapter = OpinionRecyclerAdapter()
 
 private lateinit var recyclerView: RecyclerView
 private var isLinearLayoutManager = true
@@ -28,7 +35,6 @@ private var isLinearLayoutManager = true
  */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +50,13 @@ class ProfileFragment : Fragment() {
         val view = binding.root
         return view
 
-        setup()
+
     }
-
-
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //recyclerView = binding.recyclerView
         //chooseLayout()
+        setup()
     }
 
     override fun onDestroyView() {
@@ -119,12 +124,53 @@ class ProfileFragment : Fragment() {
             }
     }*/
 
+    private fun getOpinions() : MutableList<Opinion>{
+        val opinions: MutableList<Opinion> = arrayListOf()
+        opinions.add(
+            Opinion(
+            "Entrepans!!",
+            "restaurant_Amable",
+            "Menjar",
+            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
+            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
+        )
+        )
+        opinions.add(
+            Opinion(
+            "PASSEJO GOSSOS",
+            "carles_Cirera",
+            "Animals de companyia",
+            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
+            "https://cdn.royalcanin-weshare-online.io/_lbminYBBKJuub5q6J5F/v1/vf-a-spasso-col-cane-una-salute-un-benessere-442-800?h=675&w=1200&la=es-ES&fm=jpg"
+        )
+        )
+
+        return opinions
+    }
+
+    private fun setupRecyclerView(){
+
+        //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
+        binding.rvOpinions.setHasFixedSize(true)
+
+        //indiquem que el RV es mostrarà en format llista
+        binding.rvOpinions.layoutManager = LinearLayoutManager(context)
+
+        //generem el adapter
+        myAdapter.OpinionRecyclerAdapter(getOpinions(), requireContext())
+
+        //assignem el adapter al RV
+        binding.rvOpinions.adapter = myAdapter
+    }
+
     private fun setup() {
-        binding.addOfferBtn.setOnClickListener(){
-            val action = ProfileFragmentDirections.actionProfileFragmentToBlankFragment()
-            //view.findNavController1().navigate(action)
+        binding.addOfferBtn.setOnClickListener() {
+            val action = ProfileFragmentDirections.actionProfileFragmentToAddOfferFragment()
+            view?.findNavController1()?.navigate(action)
 
         }
+
+        setupRecyclerView()
     }
 
     private fun chooseLayout() {

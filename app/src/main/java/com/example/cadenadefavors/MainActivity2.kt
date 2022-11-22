@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity2 : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -18,7 +19,7 @@ class MainActivity2 : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-//        setupActionBarWithNavController(navController)
+        setupActionBarWithNavController(navController)
 
     }
 

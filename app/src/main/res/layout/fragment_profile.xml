@@ -102,8 +102,18 @@
         android:id="@+id/addOfferBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="56dp"
         android:text="Afegir Oferta"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="218dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOpinions"
+        android:layout_width="409dp"
+        android:layout_height="463dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
