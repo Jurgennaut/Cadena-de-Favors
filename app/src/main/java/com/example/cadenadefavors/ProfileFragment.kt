@@ -52,7 +52,8 @@ class ProfileFragment : Fragment() {
 
 
     }
-    
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //recyclerView = binding.recyclerView
         //chooseLayout()
@@ -185,6 +186,12 @@ class ProfileFragment : Fragment() {
         binding.addOfferBtn.setOnClickListener() {
             val action = ProfileFragmentDirections.actionProfileFragmentToAddOfferFragment()
             view?.findNavController1()?.navigate(action)
+
+        }
+        binding.resultsBtn.setOnClickListener(){
+            val action = ProfileFragmentDirections.actionProfileFragmentToResultsFragment()
+
+            this.view?.findNavController1()?.navigate(action)
 
         }
 

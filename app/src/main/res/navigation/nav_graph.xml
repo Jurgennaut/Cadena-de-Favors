@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_profileFragment_to_addOfferFragment"
             app:destination="@id/addOfferFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOfferFragment"
         android:name="com.example.cadenadefavors.AddOfferFragment"
         android:label="fragment_addoffer"
         tools:layout="@layout/fragment_addoffer" />
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.example.cadenadefavors.resultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" />
 </navigation>

@@ -11,7 +11,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOffers"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:id="@+id/button6"
@@ -19,6 +22,7 @@
             android:layout_height="wrap_content"
             android:onClick="showPopup"
             android:text="Button"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +41,16 @@
             android:text="Prova la càmera"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/provisional" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="53dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
