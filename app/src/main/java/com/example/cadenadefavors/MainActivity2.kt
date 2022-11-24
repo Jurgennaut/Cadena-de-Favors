@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.cadenadefavors.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -13,7 +14,8 @@ class MainActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        val binding= ActivityMain2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment

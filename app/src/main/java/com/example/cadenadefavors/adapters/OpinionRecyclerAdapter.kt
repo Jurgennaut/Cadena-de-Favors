@@ -1,6 +1,7 @@
 package com.example.cadenadefavors.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,9 +15,9 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
     lateinit var context: Context
 
     //constructor de la classe on es passa la font de dades i el context sobre el que es mostrarà
-    fun OpinionRecyclerAdapter(opinionsList:MutableList<Opinion>, contxt: Context){
+    fun OpinionRecyclerAdapter(opinionsList:MutableList<Opinion>){ //}, contxt: Context){
         this.opinions = opinionsList
-        this.context = contxt
+        //this.context = contxt
     }
 
     //és l'encarregat de retornar el ViewHolder ja configurat
@@ -36,9 +37,9 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
             with(opinions.get(position)){
                 binding.textOpinionDescription.text = this.opinionDescription
                 binding.textOpinionOwner.text = "@"+this.opinionOwner
-                binding.textOpinionerFavorReceived.text = "@"+this.opinionerFavorReceived
+                binding.textOpinionerFavorReceived.text = "Va demanar: \n"+this.opinionerFavorReceived
                 binding.imageViewOpinionerPhoto.load(this.opinionerPhoto)
-                binding.imageViewOpinionerStarsGiven.load(this.opinionerStarsGiven)
+                binding.imageViewOpinionerStarsGiven.setImageResource(this.stars)
                 /*
                  //Monstrar la imatge des de Storage de Firebase
                  val storageRef = FirebaseStorage.getInstance().reference
@@ -61,6 +62,7 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
 
 
     override fun getItemCount(): Int {
+        Log.d("opinionProfile", "getCount ${opinions.size}")
         return opinions.size
     }
 

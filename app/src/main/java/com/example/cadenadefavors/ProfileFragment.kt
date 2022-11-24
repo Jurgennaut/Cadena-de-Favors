@@ -128,21 +128,39 @@ class ProfileFragment : Fragment() {
         val opinions: MutableList<Opinion> = arrayListOf()
         opinions.add(
             Opinion(
-            "Entrepans!!",
-            "restaurant_Amable",
-            "Menjar",
-            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
-            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
+            "AlbertElLiante",
+            "Estava trencat, jo no he estat",
+            "Portàtil",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEfVUCNin7RsJNc3_pcL-4Mqk8STnqlGtuQ&usqp=CAU",
+            R.drawable.puntuacion_max
         )
         )
         opinions.add(
             Opinion(
-            "PASSEJO GOSSOS",
-            "carles_Cirera",
-            "Animals de companyia",
+            "Gerardo V",
+            "El gos no es va cansar gaire..",
+            "Passejar el gos",
             "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
-            "https://cdn.royalcanin-weshare-online.io/_lbminYBBKJuub5q6J5F/v1/vf-a-spasso-col-cane-una-salute-un-benessere-442-800?h=675&w=1200&la=es-ES&fm=jpg"
+            R.drawable.puntuacion_media
         )
+        )
+        opinions.add(
+            Opinion(
+                "Jordi O",
+                "Molt bo, tot perfecte",
+                "Entrepà",
+                "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
+                R.drawable.puntuacion_quasi_max
+            )
+        )
+        opinions.add(
+            Opinion(
+                "AlbertElLiante",
+                "Estava trencat, jo no he estat",
+                "Portàtil",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEfVUCNin7RsJNc3_pcL-4Mqk8STnqlGtuQ&usqp=CAU",
+                R.drawable.puntuacion_max
+            )
         )
 
         return opinions
@@ -157,7 +175,7 @@ class ProfileFragment : Fragment() {
         binding.rvOpinions.layoutManager = LinearLayoutManager(context)
 
         //generem el adapter
-        myAdapter.OpinionRecyclerAdapter(getOpinions(), requireContext())
+        myAdapter.OpinionRecyclerAdapter(getOpinions()) //, getContext())
 
         //assignem el adapter al RV
         binding.rvOpinions.adapter = myAdapter

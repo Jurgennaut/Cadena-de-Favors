@@ -40,10 +40,9 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="168dp"
-        android:layout_marginBottom="23dp"
         android:text="Descripció"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/profile_username" />
@@ -74,7 +73,7 @@
         android:id="@+id/button4"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="14dp"
         android:text="Ubicació"
         android:textSize="10sp"
@@ -87,33 +86,33 @@
         android:id="@+id/button5"
         android:layout_width="104dp"
         android:layout_height="48dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="537dp"
         android:text="Obrir xat"
         android:textSize="10sp"
         android:theme="@style/Button.Green"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/profile_username"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_username" />
 
     <Button
         android:id="@+id/addOfferBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
         android:text="Afegir Oferta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOpinions"
-        android:layout_width="409dp"
-        android:layout_height="463dp"
+        android:layout_width="413dp"
+        android:layout_height="462dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addOfferBtn"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
