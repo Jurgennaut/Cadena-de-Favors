@@ -2,72 +2,77 @@ package com.example.cadenadefavors
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cadenadefavors.models.Offer
-import com.example.cadenadefavors.databinding.ActivityMainBinding
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
-enum class ProviderType {
-    BASIC
-}
+import com.example.cadenadefavors.databinding.FragmentMainBinding
+import com.example.cadenadefavors.models.Offer
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+/**
+ * A simple [Fragment] subclass.
+ * Use the [MainFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class MainFragment : Fragment() {
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     private val myAdapter: OfferRecyclerAdapter = OfferRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(2000)
-        installSplashScreen()
-        binding =ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupRecyclerView()
-
+        setHasOptionsMenu(true)
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupRecyclerView()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     private fun setupRecyclerView(){
         binding.button6.setOnClickListener{
             showPopup(binding.button6)
-        }
-
-        binding.provisional.setOnClickListener{
-            showHome2()
-        }
-
-        binding.provisional2.setOnClickListener{
-            showRegister()
         }
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
         binding.rvOffers.setHasFixedSize(true)
 
         //indiquem que el RV es mostrarà en format llista
-        binding.rvOffers.layoutManager = LinearLayoutManager(this)
+        binding.rvOffers.layoutManager = LinearLayoutManager(context)
 
         //generem el adapter
-        myAdapter.OffersRecyclerAdapter(getOffers(),this)
+        myAdapter.OffersRecyclerAdapter(getOffers(),requireContext())
 
         //assignem el adapter al RV
         binding.rvOffers.adapter = myAdapter
     }
+    private fun getOffers() : MutableList<Offer>{
 
-    fun getOffers() : MutableList<Offer>{
         val offers: MutableList<Offer> = arrayListOf()
         offers.add(Offer(
-                "Entrepans!!",
-                "restaurant_Amable",
-                "Menjar",
-                0,
-                "Entrepans de tot tipus. Obrir xat per preguntar els preus",
-                "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
-            )
+            "Entrepans!!",
+            "restaurant_Amable",
+            "Menjar",
+            0,
+            "Entrepans de tot tipus. Obrir xat per preguntar els preus",
+            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
+        )
         )
         offers.add(Offer(
             "PASSEJO GOSSOS",
@@ -95,23 +100,12 @@ class MainActivity : AppCompatActivity() {
         ))
 
         return offers
-    }
 
+    }
     private fun showPopup(v: View){
-        val popup=PopupMenu(this,v)
-        val inflater:MenuInflater=popup.menuInflater
+        val popup= PopupMenu(context,v)
+        val inflater: MenuInflater =popup.menuInflater
         inflater.inflate(R.menu.menu_principal, popup.menu)
         popup.show()
-    }
-
-    //Provisional
-    private fun showHome2() {
-        val homeIntent = Intent(this, MainActivity2::class.java)
-        startActivity(homeIntent)
-    }
-
-    private fun showRegister() {
-        val homeIntent = Intent(this, RegisterActivity::class.java)
-        startActivity(homeIntent)
     }
 }

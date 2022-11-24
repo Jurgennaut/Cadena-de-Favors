@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showHome(email: String, provider: ProviderType) {
-        val homeIntent = Intent(this, MainActivity::class.java)
+        val homeIntent = Intent(this, MainActivity2::class.java)
         startActivity(homeIntent)
     }
 
