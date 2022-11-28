@@ -36,11 +36,11 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
         with(holder){
             with(offers.get(position)){
                 binding.txtOfferTitle.text = this.offerTitle
-                binding.txtDescription.text = this.offerDescription
-                binding.txtOwner.text = "@"+this.offerOwner
+               // binding.txtDescription.text = this.offerDescription
+                //binding.txtOwner.text = "@"+this.offerOwner
                 binding.txtPrice.text= "Preu: "+ (this.offerPrice).toString()+" favos."
                 binding.imgOffer.load(this.offerImage)
-                binding.txtOfferCategory.text="Categoria: "+this.offerCategory
+                //binding.txtOfferCategory.text="Categoria: "+this.offerCategory
                 /*
                  //Monstrar la imatge des de Storage de Firebase
                  val storageRef = FirebaseStorage.getInstance().reference
@@ -57,7 +57,7 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
 
         //estamblim un listener
         holder.itemView.setOnClickListener {
-            Toast.makeText(context,offers.get(position).offerTitle,Toast.LENGTH_LONG).show()
+            Toast.makeText(context, offers.get(position).offerOwner,Toast.LENGTH_LONG).show()
         }
     }
 

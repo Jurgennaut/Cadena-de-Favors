@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
@@ -54,7 +55,7 @@ class MainFragment : Fragment() {
         binding.rvOffers.setHasFixedSize(true)
 
         //indiquem que el RV es mostrarà en format llista
-        binding.rvOffers.layoutManager = LinearLayoutManager(context)
+        binding.rvOffers.layoutManager = GridLayoutManager(context,2);
 
         //generem el adapter
         myAdapter.OffersRecyclerAdapter(getOffers(),requireContext())
