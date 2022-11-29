@@ -35,5 +35,18 @@
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/offerFragment"
+        android:name="com.example.cadenadefavors.OfferFragment"
+        android:label="fragment_offer"
+        tools:layout="@layout/fragment_offer" >
+        <argument
+            android:name="pOffer"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

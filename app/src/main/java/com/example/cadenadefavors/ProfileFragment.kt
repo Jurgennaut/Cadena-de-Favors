@@ -1,17 +1,12 @@
 package com.example.cadenadefavors
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.adapters.OpinionRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentProfileBinding
-import com.example.cadenadefavors.models.Offer
 import com.example.cadenadefavors.models.Opinion
 import androidx.navigation.findNavController as findNavController1
 

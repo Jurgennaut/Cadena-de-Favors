@@ -1,11 +1,14 @@
-package com.example.cadenadefavors.models
+package com.example.cadenadefavors
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cadenadefavors.R
+import androidx.navigation.fragment.navArgs
+import coil.api.load
+import com.example.cadenadefavors.databinding.FragmentMainBinding
+import com.example.cadenadefavors.databinding.FragmentOfferBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,10 @@ class OfferFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentOfferBinding? = null
+    private val binding get() = _binding!!
+
+    val args: OfferFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +42,17 @@ class OfferFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_offer, container, false)
+        _binding = FragmentOfferBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.imageView4.load(args.pOffer);
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

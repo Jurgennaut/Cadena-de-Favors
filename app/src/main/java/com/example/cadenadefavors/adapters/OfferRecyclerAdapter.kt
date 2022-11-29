@@ -4,10 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cadenadefavors.models.Offer
 import com.example.cadenadefavors.databinding.ItemOfferListBinding
 import coil.api.load
+import com.example.cadenadefavors.MainFragmentDirections
 
 
 class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder>() {
@@ -56,8 +58,13 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
         holder.bind(item)
 
         //estamblim un listener
-        holder.itemView.setOnClickListener {
-            Toast.makeText(context, offers.get(position).offerOwner,Toast.LENGTH_LONG).show()
+        holder.itemView.setOnClickListener { view ->
+            val selectedOffer=offers.get(position);
+
+            Toast.makeText(context, selectedOffer.offerOwner,Toast.LENGTH_LONG).show()
+
+            val action = MainFragmentDirections.actionMainFragmentToOfferFragment(selectedOffer.offerImage!!)
+            view.findNavController()?.navigate(action)
         }
     }
 

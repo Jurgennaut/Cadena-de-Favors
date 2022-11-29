@@ -3,12 +3,17 @@ package com.example.cadenadefavors.adapters
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.example.cadenadefavors.MainFragmentDirections
+import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.example.cadenadefavors.databinding.ItemOpinionListBinding
 import com.example.cadenadefavors.models.Opinion
+
+import androidx.navigation.findNavController as findNavController1
 
 class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHolder>() {
     var opinions: MutableList<Opinion> = ArrayList()
@@ -55,7 +60,7 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
         holder.bind(item)
 
         //estamblim un listener
-        holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener { view ->
             Toast.makeText(context,opinions.get(position).opinionerFavorReceived, Toast.LENGTH_LONG).show()
         }
     }
