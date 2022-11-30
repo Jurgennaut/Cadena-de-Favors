@@ -2,6 +2,7 @@ package com.example.cadenadefavors
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuInflater
@@ -14,6 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.example.cadenadefavors.models.Offer
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass.
@@ -23,6 +29,11 @@ import com.example.cadenadefavors.models.Offer
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var auth: FirebaseAuth
+    val db = FirebaseFirestore.getInstance()
+
+    private val TAG = "cuackeando"
 
     private val myAdapter: OfferRecyclerAdapter = OfferRecyclerAdapter()
 
@@ -35,11 +46,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        auth = Firebase.auth
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+        binding.provisionalBtn.setOnClickListener{
+            insertUserToDB()
+        }
+
         setupRecyclerView()
     }
 
@@ -109,5 +127,23 @@ class MainFragment : Fragment() {
         val inflater: MenuInflater =popup.menuInflater
         inflater.inflate(R.menu.menu_principal, popup.menu)
         popup.show()
+    }
+
+    private fun insertUserToDB(){
+        Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
+
+        val user = hashMapOf(
+            "actiu" to true,
+            "nom d'usuari" to "miguelín",
+            "contrasenya" to "ABCD1234",
+            "correu electronic" to "miguelin@gmail.com",
+            "adreca" to "C/topete 22"
+        )
+
+// Add a new document with a generated ID
+        db.collection("cosas").document(FirebaseAuth.getInstance().currentUser!!.uid)
+            .set(user)
+
+
     }
 }
