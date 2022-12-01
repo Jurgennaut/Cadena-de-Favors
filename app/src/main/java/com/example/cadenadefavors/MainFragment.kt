@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
-    val db = FirebaseFirestore.getInstance()
+    val db = Firebase.firestore
 
     private val TAG = "cuackeando"
 
@@ -141,8 +141,11 @@ class MainFragment : Fragment() {
         )
 
 // Add a new document with a generated ID
-        db.collection("cosas").document(FirebaseAuth.getInstance().currentUser!!.uid)
+        db.collection("cosas").document("hola")
             .set(user)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
 
     }
