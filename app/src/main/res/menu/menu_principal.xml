@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/new_game"
+    <item android:id="@+id/menu_myprofile"
         android:icon="@drawable/logo"
-        android:title="@string/el_meu_perfil"
-        app:showAsAction="ifRoom" />
-    <item
+        android:title="@string/el_meu_perfil" />
+    <item android:id="@+id/menu_transfer"
         android:icon="@drawable/logo"
         android:title="@string/fer_una_transferencia" />
-    <item android:id="@+id/help"
+    <item android:id="@+id/menu_logout"
         android:icon="@drawable/logo"
         android:title="@string/logout" />
 </menu>

@@ -2,13 +2,13 @@ package com.example.cadenadefavors
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
@@ -28,7 +28,6 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +40,31 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
+        val menuHost: MenuHost = requireActivity()
+
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State (here, RESUMED) to indicate when
+        // the menu should be visible
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_principal, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+                return when (menuItem.itemId) {
+                    R.id.menu_logout -> {
+                        val homeIntent = Intent(context, MainActivity2::class.java)
+                        startActivity(homeIntent)
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {
@@ -48,9 +72,6 @@ class MainFragment : Fragment() {
         _binding = null
     }
     private fun setupRecyclerView(){
-        binding.button6.setOnClickListener{
-            showPopup(binding.button6)
-        }
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
         binding.rvOffers.setHasFixedSize(true)
@@ -103,11 +124,5 @@ class MainFragment : Fragment() {
 
         return offers
 
-    }
-    private fun showPopup(v: View){
-        val popup= PopupMenu(context,v)
-        val inflater: MenuInflater =popup.menuInflater
-        inflater.inflate(R.menu.menu_principal, popup.menu)
-        popup.show()
     }
 }
