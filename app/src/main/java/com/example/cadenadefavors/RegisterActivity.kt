@@ -3,6 +3,7 @@ package com.example.cadenadefavors
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.nfc.Tag
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -13,6 +14,7 @@ import com.example.cadenadefavors.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 private const val REQUEST_CODE=42
@@ -20,6 +22,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun setup() {
 
         binding.btnCamera.setOnClickListener{
+            Log.d("TAG", "Cuack")
+
             val takePictureIntent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if(takePictureIntent.resolveActivity(this.packageManager)!=null){
                 startActivityForResult(takePictureIntent, REQUEST_CODE)
@@ -59,6 +65,8 @@ class RegisterActivity : AppCompatActivity() {
         val userName = binding.editTextUserName.text.toString()
 
         binding.button2.setOnClickListener {
+            Log.d("TAG", "Cuack1")
+
             if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(
                     binding.emailEditText.text.toString().trim(),

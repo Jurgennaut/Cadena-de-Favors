@@ -19,19 +19,22 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize Firebase Auth
         auth = Firebase.auth
-
+        var currentUser = FirebaseAuth.getInstance().currentUser
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         setup()
+
     }
 
     private fun setup() {
         title = "Autenticació"
 
         binding.login.setOnClickListener {
+
+
             if (binding.emailEditTextLogIn.text.isNotEmpty() && binding.passwordEditTextLogIn.text.isNotEmpty()) {
+                binding.login.isEnabled = false
                 auth.signInWithEmailAndPassword(
                     binding.emailEditTextLogIn.text.toString().trim(),
                     binding.passwordEditTextLogIn.text.toString().trim()
@@ -40,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
                         //Log.d("TAG", "Cuack2")
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
+                        binding.login.isEnabled = true
                         Log.w("TAG", "signInUserWithEmailAndPassword:failure", it.exception)
                         showAlert()
                     }

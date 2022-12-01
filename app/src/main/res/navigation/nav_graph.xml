@@ -28,6 +28,11 @@
         android:label="fragment_results"
         tools:layout="@layout/fragment_results" />
     <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.example.cadenadefavors.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" />
+    <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.cadenadefavors.MainFragment"
         android:label="fragment_main"
