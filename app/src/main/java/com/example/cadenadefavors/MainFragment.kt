@@ -1,6 +1,5 @@
 package com.example.cadenadefavors
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.util.Log
@@ -9,19 +8,16 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.example.cadenadefavors.models.Offer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -56,36 +52,35 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
         binding.provisionalBtn.setOnClickListener{
             insertUserToDB()
         }
 
         setupRecyclerView()
-        val menuHost: MenuHost = requireActivity()
+        configMenu()
+    }
 
-        // Add menu items without using the Fragment Menu APIs
-        // Note how we can tie the MenuProvider to the viewLifecycleOwner
-        // and an optional Lifecycle.State (here, RESUMED) to indicate when
-        // the menu should be visible
+    private fun configMenu(){
+        val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.menu_principal, menu)
             }
-
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
-                        val homeIntent = Intent(context, MainActivity2::class.java)
-                        startActivity(homeIntent)
+                        Toast.makeText(context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_LONG).show()
+                        true
+                    }R.id.menu_transfer -> {
+                        Toast.makeText(context, "ENTRAMOS A MENU TRANSFER",Toast.LENGTH_LONG).show()
+                        true
+                    }R.id.menu_myprofile -> {
+                        Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()
                         true
                     }
                     else -> false
                 }
             }
-
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
@@ -160,7 +155,7 @@ class MainFragment : Fragment() {
         )
 
 // Add a new document with a generated ID
-        db.collection("cosas").document("hola")
+        db.collection("alberelliante").document("hola")
             .set(user)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
             }

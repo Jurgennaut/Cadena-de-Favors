@@ -51,7 +51,6 @@
         tools:layout="@layout/fragment_offer" >
         <argument
             android:name="pOffer"
-            app:argType="string"
-            app:nullable="true" />
+            app:argType="com.example.cadenadefavors.models.Offer" />
     </fragment>
 </navigation>

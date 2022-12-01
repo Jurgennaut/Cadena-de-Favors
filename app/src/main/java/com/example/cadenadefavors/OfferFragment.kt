@@ -29,6 +29,7 @@ class OfferFragment : Fragment() {
     private val binding get() = _binding!!
 
     val args: OfferFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -47,7 +48,9 @@ class OfferFragment : Fragment() {
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.imageView4.load(args.pOffer);
+        val currentOffer=args.pOffer
+
+        binding.imageView4.load(currentOffer.offerImage);
     }
 
     override fun onDestroyView() {

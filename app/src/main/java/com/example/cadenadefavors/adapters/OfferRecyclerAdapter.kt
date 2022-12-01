@@ -61,9 +61,7 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
         holder.itemView.setOnClickListener { view ->
             val selectedOffer=offers.get(position);
 
-            Toast.makeText(context, selectedOffer.offerOwner,Toast.LENGTH_LONG).show()
-
-            val action = MainFragmentDirections.actionMainFragmentToOfferFragment(selectedOffer.offerImage!!)
+            val action = MainFragmentDirections.actionMainFragmentToOfferFragment(selectedOffer)
             view.findNavController()?.navigate(action)
         }
     }
