@@ -25,6 +25,8 @@ class RegisterActivity : AppCompatActivity() {
 
     val db = Firebase.firestore
 
+    private val TAG = "Registro"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize Firebase Auth
@@ -74,6 +76,9 @@ class RegisterActivity : AppCompatActivity() {
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
                         if (userName.length > 1) nameUser(userName)
+
+                        insertUserToDB()
+
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
                         Log.w("TAG", "createUserWithEmail:failure", it.exception)
@@ -109,5 +114,26 @@ class RegisterActivity : AppCompatActivity() {
         val profileUpdates = userProfileChangeRequest {
             displayName = name
         }
+    }
+
+    private fun insertUserToDB(){
+        Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
+
+        val user = hashMapOf(
+            "actiu" to true,
+            "nom d'usuari" to binding.editTextUserName,
+            "contrasenya" to binding.passwordEditText,
+            "correu electronic" to binding.emailEditText,
+            "telefon" to binding.phoneEditText
+        )
+
+// Add a new document with a generated ID
+        db.collection("usuaris").document(auth.currentUser!!.uid)
+            .set(user)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+
     }
 }
