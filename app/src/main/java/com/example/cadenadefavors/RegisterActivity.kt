@@ -121,10 +121,10 @@ class RegisterActivity : AppCompatActivity() {
 
         val user = hashMapOf(
             "actiu" to true,
-            "nom d'usuari" to binding.editTextUserName,
-            "contrasenya" to binding.passwordEditText,
-            "correu electronic" to binding.emailEditText,
-            "telefon" to binding.phoneEditText
+            "nom d'usuari" to binding.editTextUserName.text.toString(),
+            "contrasenya" to binding.passwordEditText.text.toString(),
+            "correu electronic" to binding.emailEditText.text.toString(),
+            "telefon" to binding.phoneEditText.text.toString()
         )
 
 // Add a new document with a generated ID

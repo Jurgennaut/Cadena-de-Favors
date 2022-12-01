@@ -50,7 +50,14 @@ class OfferFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentOffer=args.pOffer
 
-        binding.imageView4.load(currentOffer.offerImage);
+        binding.currentOfferImage.load(currentOffer.offerImage);
+        binding.currentOfferDescription.text=currentOffer.offerDescription
+        binding.currentOfferPreu.text=currentOffer.offerPrice.toString()+" Favos"
+        binding.currentOfferTitle.text=currentOffer.offerTitle
+
+        //PROVISIONAL
+        binding.offerOwnerImage.load("https://lh3.googleusercontent.com/ogw/AOh-ky26oQBAQfLLYX-BMRGv47t5Qn2S9qrBCvJhWXMx=s32-c-mo")
+        binding.offerOwnerUsername.text="GerardoVega1234"
     }
 
     override fun onDestroyView() {
