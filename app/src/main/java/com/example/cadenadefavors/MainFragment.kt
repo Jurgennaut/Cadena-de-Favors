@@ -1,5 +1,6 @@
 package com.example.cadenadefavors
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.util.Log
@@ -12,6 +13,8 @@ import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
@@ -56,11 +59,16 @@ class MainFragment : Fragment() {
             insertUserToDB()
         }
 
+        binding.button6.setOnClickListener{
+        Toast.makeText(context, auth.currentUser?.email.toString(),Toast.LENGTH_LONG).show()
+
+        }
+
         setupRecyclerView()
-        configMenu()
+        setupMenu()
     }
 
-    private fun configMenu(){
+    private fun setupMenu(){
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -70,9 +78,6 @@ class MainFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
                         Toast.makeText(context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_LONG).show()
-                        true
-                    }R.id.menu_transfer -> {
-                        Toast.makeText(context, "ENTRAMOS A MENU TRANSFER",Toast.LENGTH_LONG).show()
                         true
                     }R.id.menu_myprofile -> {
                         Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()

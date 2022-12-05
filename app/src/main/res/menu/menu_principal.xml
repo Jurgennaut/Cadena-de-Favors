@@ -4,9 +4,6 @@
     <item android:id="@+id/menu_myprofile"
         android:icon="@drawable/logo"
         android:title="@string/el_meu_perfil" />
-    <item android:id="@+id/menu_transfer"
-        android:icon="@drawable/logo"
-        android:title="@string/fer_una_transferencia" />
     <item android:id="@+id/menu_logout"
         android:icon="@drawable/logo"
         android:title="@string/logout" />

@@ -14,7 +14,6 @@ data class Offer(val title:String, val owner:String, val category:String, val pr
     var offerPrice:Int?=null
     var offerDescription:String?=null
     var offerImage:String?=null
-
     init {
         this.offerTitle = title
         this.offerOwner= owner

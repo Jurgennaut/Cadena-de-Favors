@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_mainFragment_to_offerFragment"
             app:destination="@id/offerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_transferFragment"
+            app:destination="@id/transferFragment" />
     </fragment>
     <fragment
         android:id="@+id/offerFragment"

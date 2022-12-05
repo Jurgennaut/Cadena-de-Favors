@@ -13,9 +13,7 @@
         app:cardElevation="5dp"
         app:cardMaxElevation="5dp"
         app:cardPreventCornerOverlap="false"
-        app:elevation="5dp"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:elevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="190dp"
@@ -24,7 +22,8 @@
             <ImageView
                 android:id="@+id/imgOffer"
                 android:layout_width="match_parent"
-                android:layout_height="185dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.75"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/offer_image"
                 android:orientation="vertical"
