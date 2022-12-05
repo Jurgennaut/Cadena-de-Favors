@@ -1,10 +1,17 @@
 package com.example.cadenadefavors
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.cadenadefavors.databinding.FragmentAddofferBinding
+import com.example.cadenadefavors.databinding.FragmentMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +28,14 @@ class AddOfferFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentAddofferBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+
+    private val TAG = "addOffer"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,6 +48,9 @@ class AddOfferFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentAddofferBinding.inflate(inflater, container, false)
+        auth = Firebase.auth
+        val view = binding.root
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_addoffer, container, false)
     }
@@ -55,5 +73,24 @@ class AddOfferFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun insertOfferToDB(){
+        Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
+
+        val offer = hashMapOf(
+            "categoria" to "",
+            "descripcio" to binding.editTextOfferDescription.text.toString(),
+            "preu" to binding.editTextOfferPrice.text.toString(),
+        )
+
+// Add a new document with a generated ID
+        db.collection("usuaris").document(auth.currentUser!!.uid).collection("favors").document()
+            .set(offer)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+
     }
 }
