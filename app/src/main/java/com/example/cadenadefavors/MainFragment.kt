@@ -234,7 +234,7 @@ class MainFragment : Fragment() {
         )
 
 // Add a new document with a generated ID
-        db.collection("alberelliante").document("hola")
+        db.collection("albertElLiante").document("hola")
             .set(user)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
             }

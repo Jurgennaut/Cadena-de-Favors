@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import android.widget.Toast
 import com.example.cadenadefavors.databinding.FragmentAddofferBinding
 import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -55,6 +58,14 @@ class AddOfferFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_addoffer, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.menuCategories.setOnClickListener{
+            showPopup(view)
+        }
+
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -92,5 +103,12 @@ class AddOfferFragment : Fragment() {
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
 
+    }
+
+    fun showPopup(v: View){
+        val popup = PopupMenu(context, v)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.menu_categories, popup.menu)
+        popup.show()
     }
 }
