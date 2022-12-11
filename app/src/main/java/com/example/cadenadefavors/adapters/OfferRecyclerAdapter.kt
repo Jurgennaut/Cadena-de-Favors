@@ -10,6 +10,7 @@ import com.example.cadenadefavors.models.Offer
 import com.example.cadenadefavors.databinding.ItemOfferListBinding
 import coil.api.load
 import com.example.cadenadefavors.MainFragmentDirections
+import com.google.android.gms.common.api.internal.LifecycleCallback.getFragment
 
 
 class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder>() {
@@ -60,7 +61,6 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
         //estamblim un listener
         holder.itemView.setOnClickListener { view ->
             val selectedOffer=offers.get(position);
-
             val action = MainFragmentDirections.actionMainFragmentToOfferFragment(selectedOffer)
             view.findNavController()?.navigate(action)
         }

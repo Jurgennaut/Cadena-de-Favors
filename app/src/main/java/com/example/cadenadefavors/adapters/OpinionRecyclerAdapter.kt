@@ -39,7 +39,7 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder){
-            with(opinions.get(position)){
+            with(opinions[position]){
                 binding.textOpinionDescription.text = this.opinionDescription
                 binding.textOpinionOwner.text = "@"+this.opinionOwner
                 binding.textOpinionerFavorReceived.text = "Va demanar: \n"+this.opinionerFavorReceived
@@ -56,12 +56,13 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
                  } */
             }
         }
-        val item = opinions.get(position)
+        val item = opinions[position]
         holder.bind(item)
 
         //estamblim un listener
         holder.itemView.setOnClickListener { view ->
-            Toast.makeText(context,opinions.get(position).opinionerFavorReceived, Toast.LENGTH_LONG).show()
+            Toast.makeText(view.context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_SHORT).show()
+            Log.d("TAG","message: "+view.context)
         }
     }
 

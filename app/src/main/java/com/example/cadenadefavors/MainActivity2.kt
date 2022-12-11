@@ -7,9 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-
 import com.example.cadenadefavors.databinding.ActivityMain2Binding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -19,7 +17,7 @@ enum class ProviderType {
 }
 class MainActivity2 : AppCompatActivity() {
     private lateinit var navController: NavController
-
+    private lateinit var binding: ActivityMain2Binding
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,19 +27,22 @@ class MainActivity2 : AppCompatActivity() {
 
         Log.d("TAG", "Cuack2 ${auth.currentUser?.displayName}")
 
-        val binding= ActivityMain2Binding.inflate(layoutInflater)
+        binding= ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+
         setupActionBarWithNavController(navController)
-
-        val navView: BottomNavigationView = binding.bottomNavView
-        navView.setupWithNavController(navController)
+        setupBottomNavMenu(navController)
     }
+    private fun setupBottomNavMenu(navController: NavController){
+        val bottomNav=binding.bottomNavView
 
+        bottomNav?.setupWithNavController(navController)
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()

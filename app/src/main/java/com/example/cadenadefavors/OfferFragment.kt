@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.api.load
 import com.example.cadenadefavors.databinding.FragmentMainBinding
@@ -58,6 +59,11 @@ class OfferFragment : Fragment() {
         //PROVISIONAL
         binding.offerOwnerImage.load("https://lh3.googleusercontent.com/ogw/AOh-ky26oQBAQfLLYX-BMRGv47t5Qn2S9qrBCvJhWXMx=s32-c-mo")
         binding.offerOwnerUsername.text="GerardoVega1234"
+
+        binding.offerOwnerImage.setOnClickListener{
+            val action = OfferFragmentDirections.actionOfferFragmentToProfileFragment()
+            view.findNavController()?.navigate(action)
+        }
     }
 
     override fun onDestroyView() {

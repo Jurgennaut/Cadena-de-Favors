@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -56,32 +56,20 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/offerOwnerImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/currentOfferPreu" />
 
-        <ImageView
-            android:id="@+id/offerOwnerImage"
-            android:layout_width="68dp"
-            android:layout_height="67dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.573"
-            tools:src="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/offerOwnerUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="188dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintHorizontal_bias="0.229"
             app:layout_constraintStart_toEndOf="@+id/offerOwnerImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.55" />
@@ -155,6 +143,18 @@
             app:layout_constraintTop_toBottomOf="@+id/currentOfferDescription"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintWidth_percent="0.95" />
+
+        <ImageButton
+            android:id="@+id/offerOwnerImage"
+            android:layout_width="68dp"
+            android:layout_height="67dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.573"
+            tools:src="@tools:sample/avatars" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

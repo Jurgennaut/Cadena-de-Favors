@@ -117,8 +117,39 @@ class MainFragment : Fragment() {
             0,
             "Entrepans de tot tipus. Obrir xat per preguntar els preus",
             "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
-        )
-        )
+        ))
+        offers.add(Offer(
+            "PASSEJO GOSSOS",
+            "carles_Cirera",
+            "Animals de companyia",
+            15,
+            "M'ofereixo per passejar gossos. Tinc experiencia passejant diferents races de gos. 15/h",
+            "https://cdn.royalcanin-weshare-online.io/_lbminYBBKJuub5q6J5F/v1/vf-a-spasso-col-cane-una-salute-un-benessere-442-800?h=675&w=1200&la=es-ES&fm=jpg"
+        ))
+        offers.add(Offer(
+            "CORTO EL CESPED",
+            "albert_mateos",
+            "Serveis domestics",
+            5,
+            "Corto el cesped de tu patio, 5 favos",
+            "https://zulueta.com/wp-content/uploads/2017/03/cortar_cesped_fb.jpg"
+        ))
+        offers.add(Offer(
+            "Te hago un bocata",
+            "jordi_oliver",
+            "Menjar",
+            5,
+            "Te hago un bocata de lo que tenga por casa",
+            "https://canalcocina.es/medias/_cache/zoom-72c7e28383e6bdc2f4399a9a61bf3cb7-920-518.jpg"
+        ))
+        offers.add(Offer(
+            "Entrepans!!",
+            "restaurant_Amable",
+            "Menjar",
+            0,
+            "Entrepans de tot tipus. Obrir xat per preguntar els preus",
+            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
+        ))
         offers.add(Offer(
             "PASSEJO GOSSOS",
             "carles_Cirera",

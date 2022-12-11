@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_profileFragment_to_resultsFragment"
             app:destination="@id/resultsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOfferFragment"
@@ -24,7 +27,7 @@
         tools:layout="@layout/fragment_addoffer" />
     <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.example.cadenadefavors.resultsFragment"
+        android:name="com.example.cadenadefavors.ResultsFragment"
         android:label="fragment_results"
         tools:layout="@layout/fragment_results" />
     <fragment
@@ -37,9 +40,6 @@
         android:name="com.example.cadenadefavors.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_mainFragment_to_offerFragment"
             app:destination="@id/offerFragment" />
@@ -55,5 +55,8 @@
         <argument
             android:name="pOffer"
             app:argType="com.example.cadenadefavors.models.Offer" />
+        <action
+            android:id="@+id/action_offerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
