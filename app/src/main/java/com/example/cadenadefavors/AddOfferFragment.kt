@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import com.example.cadenadefavors.databinding.FragmentAddofferBinding
 import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +25,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AddOfferFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddOfferFragment : Fragment() {
+class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
+    val categoriesList = ArrayList<String>()
+    var spinnerCategories:Spinner? = null
+    var textView_categories:TextView? = null
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -41,6 +44,22 @@ class AddOfferFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        textView_categories = binding.textViewCategoria
+        spinnerCategories = binding.menuCategories
+        categoriesList.add("Menjar")
+        categoriesList.add("Automoció")
+        categoriesList.add("Informàtica")
+        categoriesList.add("Jardineria")
+
+        spinnerCategories!!.onItemSelectedListener
+
+        val aa = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, categoriesList) }
+        if (aa != null) {
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+        spinnerCategories!!.setAdapter(aa)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -59,10 +78,6 @@ class AddOfferFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        binding.menuCategories.setOnClickListener{
-            showPopup(view)
-        }
 
     }
 
@@ -105,10 +120,11 @@ class AddOfferFragment : Fragment() {
 
     }
 
-    fun showPopup(v: View){
-        val popup = PopupMenu(context, v)
-        val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.menu_categories, popup.menu)
-        popup.show()
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        textView_categories!!.text = categoriesList[position]
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 }
