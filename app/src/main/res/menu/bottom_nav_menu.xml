@@ -6,4 +6,7 @@
     <item android:id="@+id/transferFragment"
         android:icon="@drawable/ic_doublearrow"
         android:title="@string/fer_una_transferencia"/>
+    <item android:id="@+id/addOfferFragment"
+        android:icon="@drawable/ic_doublearrow"
+        android:title="test"/>
 </menu>
