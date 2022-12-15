@@ -88,7 +88,7 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(){
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
         binding.rvOffers.setHasFixedSize(true)
