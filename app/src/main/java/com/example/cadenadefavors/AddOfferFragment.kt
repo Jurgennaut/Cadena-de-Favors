@@ -1,19 +1,24 @@
 package com.example.cadenadefavors
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.example.cadenadefavors.databinding.FragmentAddofferBinding
-import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.io.File
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,10 +30,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AddOfferFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    val categoriesList = ArrayList<String>()
-    var spinnerCategories:Spinner? = null
-    var textView_categories:TextView? = null
+class AddOfferFragment : Fragment() {
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -42,23 +45,15 @@ class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val TAG = "addOffer"
 
+    private var imageUri:String = ""
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        // Handle the returned Uri
+        imageUri = File(uri!!.toString()).toString()
+        binding.imageViewFromDevice.setImageURI(uri)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        textView_categories = binding.textViewCategoria
-        spinnerCategories = binding.menuCategories
-        categoriesList.add("Menjar")
-        categoriesList.add("Automoció")
-        categoriesList.add("Informàtica")
-        categoriesList.add("Jardineria")
-
-        spinnerCategories!!.onItemSelectedListener
-
-        val aa = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, categoriesList) }
-        if (aa != null) {
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-        spinnerCategories!!.setAdapter(aa)
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -72,13 +67,22 @@ class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         _binding = FragmentAddofferBinding.inflate(inflater, container, false)
         auth = Firebase.auth
-        val view = binding.root
+
+        binding.buttonAddImage23.setOnClickListener{
+            Log.d("TAG", "hola23")
+            getContent.launch("image/*")
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_addoffer, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.button3.setOnClickListener{
+            Log.d("TAG", "hola3")
+            insertOfferToDB()
+        }
     }
 
     companion object {
@@ -105,9 +109,10 @@ class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
         val offer = hashMapOf(
-            "categoria" to "",
+            "categoria" to binding.menuCategories.toString(),
             "descripcio" to binding.editTextOfferDescription.text.toString(),
             "preu" to binding.editTextOfferPrice.text.toString(),
+            "imatge" to imageUri
         )
 
 // Add a new document with a generated ID
@@ -118,13 +123,5 @@ class AddOfferFragment : Fragment(), AdapterView.OnItemSelectedListener {
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
 
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        textView_categories!!.text = categoriesList[position]
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }
