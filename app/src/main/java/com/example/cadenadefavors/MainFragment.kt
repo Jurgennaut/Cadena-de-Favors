@@ -24,6 +24,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 /**
  * A simple [Fragment] subclass.
@@ -35,6 +36,8 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
+    val storage = Firebase.storage
+    var storageRef = storage.reference
 
     private val TAG = "cuackeando"
 
@@ -55,13 +58,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.provisionalBtn.setOnClickListener{
-            insertUserToDB()
-        }
-
-        binding.button6.setOnClickListener{
-        Toast.makeText(context, auth.currentUser?.email.toString(),Toast.LENGTH_LONG).show()
-        }
 
         setupRecyclerView()
         setupMenu()
@@ -92,7 +88,7 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
         binding.rvOffers.setHasFixedSize(true)
@@ -101,11 +97,14 @@ class MainFragment : Fragment() {
         binding.rvOffers.layoutManager = GridLayoutManager(context,2);
 
         //generem el adapter
+
+        getOffers()
+    }
+    private fun getOffers(){
         val offers: MutableList<Offer> = arrayListOf()
-        val offersArr = db.collection("favors (cataleg)").get()
+        db.collection("favors (cataleg)").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    Log.d(TAG, document.data["Description"].toString())
                     offers.add(Offer(
                         document.data["Title"].toString(),
                         document.data["Owner"].toString(),
@@ -113,133 +112,15 @@ class MainFragment : Fragment() {
                         document.data["Price"].toString().toInt(),
                         document.data["Description"].toString(),
                         document.data["Image"].toString(),
-
-                    ))
+                        ))
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }.addOnCompleteListener {
-                offers.add(Offer(
-                    "Entrepans!!",
-                    "restaurant_Amable",
-                    "Menjar",
-                    0,
-                    "Entrepans de tot tipus. Obrir xat per preguntar els preus",
-                    "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
-                ))
                 myAdapter.OffersRecyclerAdapter(offers,requireContext())
                 binding.rvOffers.adapter = myAdapter
             }
-
-    }
-    private fun getOffers() : MutableList<Offer>{
-        val offers: MutableList<Offer> = arrayListOf()
-        val offersArr = db.collection("favors (cataleg)").get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d(TAG, document.data["Description"].toString())
-                    offers.add(Offer(
-                        document.data["Title"].toString(),
-                        document.data["Owner"].toString(),
-                        document.data["Category"].toString(),
-                        document.data["Price"].toString().toInt(),
-                        document.data["Description"].toString(),
-                        document.data["Image"].toString(),
-                    ))
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
-
-        offers.add(Offer(
-            "Entrepans!!",
-            "restaurant_Amable",
-            "Menjar",
-            0,
-            "Entrepans de tot tipus. Obrir xat per preguntar els preus",
-            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
-        ))
-//        offers.add(Offer(
-//            "PASSEJO GOSSOS",
-//            "carles_Cirera",
-//            "Animals de companyia",
-//            15,
-//            "M'ofereixo per passejar gossos. Tinc experiencia passejant diferents races de gos. 15/h",
-//            "https://cdn.royalcanin-weshare-online.io/_lbminYBBKJuub5q6J5F/v1/vf-a-spasso-col-cane-una-salute-un-benessere-442-800?h=675&w=1200&la=es-ES&fm=jpg"
-//        ))
-//        offers.add(Offer(
-//            "CORTO EL CESPED",
-//            "albert_mateos",
-//            "Serveis domestics",
-//            5,
-//            "Corto el cesped de tu patio, 5 favos",
-//            "https://zulueta.com/wp-content/uploads/2017/03/cortar_cesped_fb.jpg"
-//        ))
-//        offers.add(Offer(
-//            "Te hago un bocata",
-//            "jordi_oliver",
-//            "Menjar",
-//            5,
-//            "Te hago un bocata de lo que tenga por casa",
-//            "https://canalcocina.es/medias/_cache/zoom-72c7e28383e6bdc2f4399a9a61bf3cb7-920-518.jpg"
-//        ))
-//        offers.add(Offer(
-//            "Entrepans!!",
-//            "restaurant_Amable",
-//            "Menjar",
-//            0,
-//            "Entrepans de tot tipus. Obrir xat per preguntar els preus",
-//            "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg"
-//        ))
-//        offers.add(Offer(
-//            "PASSEJO GOSSOS",
-//            "carles_Cirera",
-//            "Animals de companyia",
-//            15,
-//            "M'ofereixo per passejar gossos. Tinc experiencia passejant diferents races de gos. 15/h",
-//            "https://cdn.royalcanin-weshare-online.io/_lbminYBBKJuub5q6J5F/v1/vf-a-spasso-col-cane-una-salute-un-benessere-442-800?h=675&w=1200&la=es-ES&fm=jpg"
-//        ))
-//        offers.add(Offer(
-//            "CORTO EL CESPED",
-//            "albert_mateos",
-//            "Serveis domestics",
-//            5,
-//            "Corto el cesped de tu patio, 5 favos",
-//            "https://zulueta.com/wp-content/uploads/2017/03/cortar_cesped_fb.jpg"
-//        ))
-//        offers.add(Offer(
-//            "Te hago un bocata",
-//            "jordi_oliver",
-//            "Menjar",
-//            5,
-//            "Te hago un bocata de lo que tenga por casa",
-//            "https://canalcocina.es/medias/_cache/zoom-72c7e28383e6bdc2f4399a9a61bf3cb7-920-518.jpg"
-//        ))
-
-        return offers
-
     }
 
-    private fun insertUserToDB(){
-        Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
-
-        val user = hashMapOf(
-            "actiu" to true,
-            "nom d'usuari" to "miguelín",
-            "contrasenya" to "ABCD1234",
-            "correu electronic" to "miguelin@gmail.com",
-            "adreca" to "C/topete 22"
-        )
-
-// Add a new document with a generated ID
-        db.collection("alberelliante").document("hola")
-            .set(user)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
-            }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-
-    }
 }

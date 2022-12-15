@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/profileFragment"
@@ -60,5 +60,13 @@
         <action
             android:id="@+id/action_offerFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_offerFragment_to_addOpinionFragment"
+            app:destination="@id/addOpinionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addOpinionFragment"
+        android:name="com.example.cadenadefavors.AddOpinionFragment"
+        android:label="fragment_add_opinion"
+        tools:layout="@layout/fragment_add_opinion" />
 </navigation>

@@ -51,6 +51,10 @@ class OfferFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentOffer=args.pOffer
 
+        binding.button6.setOnClickListener(){
+            val action = OfferFragmentDirections.actionOfferFragmentToAddOpinionFragment()
+            view.findNavController()?.navigate(action)
+        }
         binding.currentOfferImage.load(currentOffer.offerImage);
         binding.currentOfferDescription.text=currentOffer.offerDescription
         binding.currentOfferPreu.text=currentOffer.offerPrice.toString()+" Favos"
