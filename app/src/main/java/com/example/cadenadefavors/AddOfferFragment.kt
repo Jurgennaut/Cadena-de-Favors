@@ -1,7 +1,5 @@
 package com.example.cadenadefavors
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,7 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.io.File
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,12 +44,13 @@ class AddOfferFragment : Fragment() {
 
     private val TAG = "addOffer"
 
-    private var imageUri:String = ""
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         // Handle the returned Uri
-        imageUri = File(uri!!.toString()).toString()
-        binding.imageViewFromDevice.setImageURI(uri)
+        val bitmap = MediaStore.Images.Media.getBitmap(context?.getContentResolver(), uri)
+        binding.imageViewFromDevice.setImageBitmap(bitmap)
     }
+
+    private var storage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +112,7 @@ class AddOfferFragment : Fragment() {
             "categoria" to binding.menuCategories.toString(),
             "descripcio" to binding.editTextOfferDescription.text.toString(),
             "preu" to binding.editTextOfferPrice.text.toString(),
-            "imatge" to imageUri
+            "imatge" to "usuaris/${auth.uid.toString()}/userImages/offer"
         )
 
 // Add a new document with a generated ID
@@ -123,5 +123,12 @@ class AddOfferFragment : Fragment() {
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
 
+    }
+
+    private fun uploadImageToStorage(fileUri:Uri){
+        val sRef: StorageReference =
+            storage.reference.child("userImages/${auth.uid.toString()}/offer")
+   // sRef.putBytes()
+    //sRef.putFile(fileUri)
     }
 }
