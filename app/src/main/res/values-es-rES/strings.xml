@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CadenaDeFavors</string>
+    <string name="intro_password">Contraseña</string>
+    <string name="btn_sign_in">Iniciar sesión</string>
+    <string name="action_sign_in_short">Inicio de sesión</string>
+    <string name="next">SIGUIENTE</string>
+    <string name="code">Código</string>
+    <string name="text_recoverpassword">Te hemos mandado un código a tu correo electrónico</string>
+    <string name="password_forgotten_text">He olvidado la contraseña</string>
+    <string name="gotoregister_text">Registrarse</string>
+    <string name="login_text">Introduce tu correo electrónico y tu contraseña</string>
+    <string name="intro_quantity">Cantidad</string>
+    <string name="transfer_activity_txt">Introduce la cantidad y el correo electrónico del beneficiario</string>
+    <string name="transfer">Transferir</string>
+    <string name="generic_name">Nombre</string>
+    <string name="add_image">Añade una imagen</string>
+    <string name="offer_image">Imagen de la oferta</string>
+    <string name="offer_title">Título de la oferta</string>
+    <string name="offer_description">Descripción</string>
+    <string name="offer_price">Precio</string>
+    <string name="offer_category">Categoría</string>
+    <string name="offer_owner">Ofertante</string>
+    <string name="fer_una_transferencia">Hacer una transferencia</string>
+    <string name="logout">Salir</string>
+    <string name="el_meu_perfil">Mi perfil</string>
+    <string name="home">Inicio</string>
+    <string name="Offers">Ofertas</string>
+    <string name="Opinions">Opiniones</string>
+    <string name="info">+Info</string>
+    <string name="intro_username">Nombre de usuario</string>
+    <string name="welcome">Hola !</string>
+    <string name="invalid_username">Nombre de usuario no vàlido</string>
+    <string name="invalid_password">La contraseña debe tener >5 caracteres</string>
+    <string name="login_failed">Inicio de sesión fallido</string>
+    <string name="afegir_imatge">Añadir imagen</string>
+    <string name="afegeix_una_oferta">Añadir oferta</string>
+
+    <string-array name="categories_list">
+        <item>Escoge la categoría</item>
+        <item>Comida</item>
+        <item>Automoción</item>
+        <item>Informática</item>
+        <item>Jardinería</item>
+    </string-array>
+</resources>

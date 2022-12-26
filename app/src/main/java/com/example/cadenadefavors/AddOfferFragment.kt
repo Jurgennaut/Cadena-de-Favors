@@ -73,16 +73,16 @@ class AddOfferFragment : Fragment() {
             getContent.launch("image/*")
         }
 
+        binding.button3.setOnClickListener{
+            Log.d("TAG", "hola3")
+            insertOfferToDB()
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        binding.button3.setOnClickListener{
-            Log.d("TAG", "hola3")
-            insertOfferToDB()
-        }
     }
 
     companion object {
@@ -109,7 +109,7 @@ class AddOfferFragment : Fragment() {
         Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
         val offer = hashMapOf(
-            "categoria" to binding.menuCategories.toString(),
+            "categoria" to binding.menuCategories.selectedItem.toString(),
             "descripcio" to binding.editTextOfferDescription.text.toString(),
             "preu" to binding.editTextOfferPrice.text.toString(),
             "imatge" to "usuaris/${auth.uid.toString()}/userImages/offer"
