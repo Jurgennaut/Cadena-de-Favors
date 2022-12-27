@@ -69,7 +69,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.button2.setOnClickListener {
             Log.d("TAG", "Cuack1")
 
-            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
+            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()
+                && binding.CPEditText.text.isNotEmpty() && binding.phoneEditText.text.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(
                     binding.emailEditText.text.toString().trim(),
                     binding.passwordEditText.text.toString().trim()
@@ -123,6 +124,7 @@ class RegisterActivity : AppCompatActivity() {
             "actiu" to true,
             "nom d'usuari" to binding.editTextUserName.text.toString(),
             "contrasenya" to binding.passwordEditText.text.toString(),
+            "codi postal" to binding.CPEditText.text.toString(),
             "correu electronic" to binding.emailEditText.text.toString(),
             "telefon" to binding.phoneEditText.text.toString()
         )

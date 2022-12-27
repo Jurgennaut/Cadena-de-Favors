@@ -54,7 +54,7 @@
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="290dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Correu electrònic"
@@ -63,15 +63,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordConfirmEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/CPEditText" />
 
     <EditText
-        android:id="@+id/passwordConfirmEditText"
+        android:id="@+id/CPEditText"
         android:layout_width="298dp"
-        android:layout_height="39dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="Confirmar contrasenya"
+        android:hint="Codi postal"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
     <EditText
         android:id="@+id/editTextUserName"
         android:layout_width="288dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:hint="Nom d'usuari"
         android:inputType="textPersonName"
@@ -95,7 +95,7 @@
     <EditText
         android:id="@+id/phoneEditText"
         android:layout_width="299dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Telèfon"
