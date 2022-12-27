@@ -7,6 +7,9 @@
         android:icon="@drawable/ic_doublearrow"
         android:title="@string/fer_una_transferencia"/>
     <item android:id="@+id/addOfferFragment"
-        android:icon="@drawable/ic_doublearrow"
-        android:title="test"/>
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Añadir favor"/>
+    <item android:id="@+id/myProfileOptionsFragment"
+        android:icon="@drawable/ic_baseline_tag_faces_24"
+        android:title="Tú"/>
 </menu>
