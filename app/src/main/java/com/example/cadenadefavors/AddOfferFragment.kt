@@ -1,5 +1,8 @@
 package com.example.cadenadefavors
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -9,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import com.example.cadenadefavors.databinding.FragmentAddofferBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +21,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
+import java.io.ByteArrayOutputStream
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,12 +48,27 @@ class AddOfferFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
+    private lateinit var bitmapfrombytes:Bitmap
+    private lateinit var imgJpg:ByteArray
+    private lateinit var urlFromStorage:Uri
+
     private val TAG = "addOffer"
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         // Handle the returned Uri
         val bitmap = MediaStore.Images.Media.getBitmap(context?.getContentResolver(), uri)
-        binding.imageViewFromDevice.setImageBitmap(bitmap)
+        val nubitmap = redimensionarImagen( bitmap!!, 200f, 200f)
+        val bos = ByteArrayOutputStream(1000)
+
+        if (nubitmap != null) {
+            nubitmap.compress(Bitmap.CompressFormat.PNG, 50, bos)
+
+            imgJpg = bos.toByteArray() //podemos guardarla, etc
+
+            bitmapfrombytes = BitmapFactory.decodeByteArray(imgJpg, 0, imgJpg.size, null)
+            binding.imageViewFromDevice.setImageBitmap(bitmapfrombytes)
+        }
+
     }
 
     private var storage = FirebaseStorage.getInstance()
@@ -75,6 +96,7 @@ class AddOfferFragment : Fragment() {
 
         binding.button3.setOnClickListener{
             Log.d("TAG", "hola3")
+            uploadImageToStorage(imgJpg)
             insertOfferToDB()
         }
 
@@ -112,7 +134,7 @@ class AddOfferFragment : Fragment() {
             "categoria" to binding.menuCategories.selectedItem.toString(),
             "descripcio" to binding.editTextOfferDescription.text.toString(),
             "preu" to binding.editTextOfferPrice.text.toString(),
-            "imatge" to "usuaris/${auth.uid.toString()}/userImages/offer"
+            "imatge" to "/userImages/${auth.uid.toString()}/${imgJpg}"
         )
 
 // Add a new document with a generated ID
@@ -125,10 +147,33 @@ class AddOfferFragment : Fragment() {
 
     }
 
-    private fun uploadImageToStorage(fileUri:Uri){
+    private fun uploadImageToStorage(data:ByteArray){
         val sRef: StorageReference =
-            storage.reference.child("userImages/${auth.uid.toString()}/offer")
-   // sRef.putBytes()
-    //sRef.putFile(fileUri)
+            storage.reference.child("userImages/${auth.uid.toString()}/${data}")
+        sRef.putBytes(data)
+            /*.addOnSuccessListener { task -> sRef.downloadUrl.addOnSuccessListener { uri ->
+            urlFromStorage = uri
+        }}*/
+
     }
+
+    fun redimensionarImagen(mBitmap: Bitmap, newWidth: Float, newHeigth: Float): Bitmap? {
+        //Redimensionem
+        val width = mBitmap.width
+        val height = mBitmap.height
+        var scaleWidth = newWidth / width
+        var scaleHeight = newHeigth / height
+
+        //ens quedem amb l'escalat més petit per que no es deformi la imatge
+        if( scaleWidth > scaleHeight ) scaleWidth = scaleHeight
+        else scaleHeight = scaleWidth
+
+        // create a matrix for the manipulation
+        val matrix = Matrix()
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight)
+        // recreate the new Bitmap
+        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false)
+    }
+
 }
