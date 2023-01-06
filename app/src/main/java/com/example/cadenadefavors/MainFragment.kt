@@ -58,6 +58,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.chatButton.setOnClickListener{
+            val chatIntent = Intent(context, ListOfChatsActivity::class.java)
+            startActivity(chatIntent)
+        }
 
         setupRecyclerView()
         setupMenu()

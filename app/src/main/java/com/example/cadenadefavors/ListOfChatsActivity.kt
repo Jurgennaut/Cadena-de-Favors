@@ -1,12 +1,15 @@
 package com.example.cadenadefavors
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.adapters.ChatAdapter
 import com.example.cadenadefavors.databinding.ActivityListOfChatsBinding
 import com.example.cadenadefavors.models.Chat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -14,6 +17,7 @@ import java.util.*
 class ListOfChatsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListOfChatsBinding
+    private lateinit var auth: FirebaseAuth
 
     private var user = ""
 
@@ -21,23 +25,33 @@ class ListOfChatsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
 
         binding = ActivityListOfChatsBinding.inflate(layoutInflater)
 
-        val view = binding.root
-        setContentView(view)
-
         //setContentView(R.layout.activity_list_of_chats)
 
-        intent.getStringExtra("user")?.let { user = it }
+        //intent.getStringExtra("usuari")?.let { user = it }
+
+        user = auth.currentUser!!.email.toString()
+
+        //Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
         if (user.isNotEmpty()){
             initViews()
         }
+
+        val view = binding.root
+        setContentView(view)
+
+        binding.newChatButton.setOnClickListener {
+
+            newChat()
+        }
+
     }
 
     private fun initViews(){
-        binding.newChatButton.setOnClickListener { newChat() }
 
         binding.listChatsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.listChatsRecyclerView.adapter =
@@ -45,7 +59,7 @@ class ListOfChatsActivity : AppCompatActivity() {
                 chatSelected(chat)
             }
 
-        val userRef = db.collection("users").document(user)
+        val userRef = db.collection("usuaris").document(auth.currentUser!!.email!!)
 
         userRef.collection("chats")
             .get()
@@ -70,28 +84,38 @@ class ListOfChatsActivity : AppCompatActivity() {
     private fun chatSelected(chat: Chat){
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("chatId", chat.id)
-        intent.putExtra("user", user)
+        intent.putExtra("usuari", user)
         startActivity(intent)
     }
 
     private fun newChat(){
         val chatId = UUID.randomUUID().toString()
         val otherUser = binding.newChatText.text.toString()
+
         val users = listOf(user, otherUser)
 
         val chat = Chat(
             id = chatId,
-            name = "Chat con $otherUser",
+            name = "Chat amb $otherUser",
             users = users
         )
 
         db.collection("chats").document(chatId).set(chat)
-        db.collection("users").document(user).collection("chats").document(chatId).set(chat)
-        db.collection("users").document(otherUser).collection("chats").document(chatId).set(chat)
+        db.collection("usuaris").document(auth.currentUser!!.email!!).collection("chats").document(chatId).set(chat)
+        db.collection("usuaris").document(otherUser).collection("chats").document(chatId).set(chat)
 
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("chatId", chatId)
-        intent.putExtra("user", user)
+        intent.putExtra("usuari", auth.currentUser!!.email!!)
         startActivity(intent)
+    }
+
+    private fun showAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("L'operació ha fallat. ${auth.currentUser!!.uid}")
+        builder.setPositiveButton("Acceptar", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }

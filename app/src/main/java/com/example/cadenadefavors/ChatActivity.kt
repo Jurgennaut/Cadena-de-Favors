@@ -30,7 +30,7 @@ class ChatActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_chat)
 
         intent.getStringExtra("chatId")?.let { chatId = it }
-        intent.getStringExtra("user")?.let { user = it }
+        intent.getStringExtra("usuari")?.let { user = it }
 
         if(chatId.isNotEmpty() && user.isNotEmpty()) {
             initViews()
