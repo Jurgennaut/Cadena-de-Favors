@@ -37,6 +37,8 @@
     <string name="Opinions">Opinions</string>
     <string name="info">+Info</string>
 
+    <string name="delete">Borrar</string>
+    <string name="edit">Editar</string>
     <string-array name="categories_list">
         <item>Escull la categoria</item>
         <item>Menjar</item>

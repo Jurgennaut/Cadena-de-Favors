@@ -2,6 +2,7 @@ package com.example.cadenadefavors.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
@@ -14,13 +15,15 @@ import com.google.android.gms.common.api.internal.LifecycleCallback.getFragment
 
 
 class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder>() {
-    var offers: MutableList<Offer> = ArrayList()
+    private var offers: MutableList<Offer> = ArrayList()
     lateinit var context: Context
+    private var isEditable: Boolean = false
 
     //constructor de la classe on es passa la font de dades i el context sobre el que es mostrarà
-    fun OffersRecyclerAdapter(offersList:MutableList<Offer>, contxt: Context){
+    fun OffersRecyclerAdapter(offersList:MutableList<Offer>, contxt: Context, editable: Boolean = false){
         this.offers = offersList
         this.context = contxt
+        this.isEditable = editable
     }
 
     //és l'encarregat de retornar el ViewHolder ja configurat
@@ -53,6 +56,19 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
                  }.addOnFailureListener {
                      //mostrar error
                  } */
+
+                if(isEditable){
+                    binding.BtnBorrar.visibility= View.VISIBLE;
+                    binding.BtnEditar.visibility= View.VISIBLE;
+
+                    binding.BtnBorrar.setOnClickListener{
+
+                    }
+
+                    binding.BtnEditar.setOnClickListener{
+
+                    }
+                }
             }
         }
         val item = offers.get(position)

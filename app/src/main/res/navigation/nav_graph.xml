@@ -73,5 +73,30 @@
         android:id="@+id/myProfileOptionsFragment"
         android:name="com.example.cadenadefavors.profile.MyProfileOptionsFragment"
         android:label="fragment_my_profile_options"
-        tools:layout="@layout/fragment_my_profile_options" />
+        tools:layout="@layout/fragment_my_profile_options" >
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_myFavorsFragment"
+            app:destination="@id/myFavorsFragment" />
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_myProfileViewFragment"
+            app:destination="@id/myProfileViewFragment" />
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_myProfileEditFragment"
+            app:destination="@id/myProfileEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavorsFragment"
+        android:name="com.example.cadenadefavors.profile.MyFavorsFragment"
+        android:label="fragment_my_favors"
+        tools:layout="@layout/fragment_my_favors" />
+    <fragment
+        android:id="@+id/myProfileViewFragment"
+        android:name="com.example.cadenadefavors.profile.MyProfileViewFragment"
+        android:label="fragment_my_profile_view"
+        tools:layout="@layout/fragment_my_profile_view" />
+    <fragment
+        android:id="@+id/myProfileEditFragment"
+        android:name="com.example.cadenadefavors.profile.MyProfileEditFragment"
+        android:label="fragment_my_profile_edit"
+        tools:layout="@layout/fragment_my_profile_edit" />
 </navigation>
