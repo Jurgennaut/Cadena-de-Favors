@@ -130,7 +130,7 @@ class RegisterActivity : AppCompatActivity() {
         )
 
 // Add a new document with a generated ID
-        db.collection("usuaris").document(auth.currentUser!!.uid)
+        db.collection("usuaris").document(auth.currentUser!!.email!!)
             .set(user)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
             }

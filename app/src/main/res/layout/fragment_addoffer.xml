@@ -1,109 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addoffer_layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/green_background"
-    android:scrollbarDefaultDelayBeforeFade="400"
-    android:scrollbars="vertical"
-    tools:context=".AddOfferFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/afegeix_una_oferta"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/menu_categories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addoffer_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green_background"
+        android:scrollbarDefaultDelayBeforeFade="400"
+        android:scrollbars="vertical"
+        tools:context=".AddOfferFragment"
+        tools:layout_editor_absoluteY="1dp">
 
-    <Spinner
-        android:id="@+id/menu_categories"
-        android:layout_width="320dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="140dp"
-        android:entries="@array/categories_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="@string/afegeix_una_oferta"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/menu_categories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.097" />
 
-    <EditText
-        android:id="@+id/editTextOfferDescription"
-        android:layout_width="263dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="56dp"
-        android:autoText="false"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Descripcio"
-        android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_categories" />
+        <Spinner
+            android:id="@+id/menu_categories"
+            android:layout_width="320dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="156dp"
+            android:entries="@array/categories_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.612"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    <EditText
-        android:id="@+id/editTextOfferPrice"
-        android:layout_width="196dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="Preu"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_fromDevice" />
+        <EditText
+            android:id="@+id/editTextOfferDescription"
+            android:layout_width="263dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="68dp"
+            android:autoText="false"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Descripcio"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menu_categories" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Afegir oferta"
-        android:textColor="#000000"
-        android:theme="@style/Button.Green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOfferPrice" />
+        <EditText
+            android:id="@+id/editTextOfferPrice"
+            android:layout_width="196dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:hint="Preu"
+            android:inputType="number"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_fromDevice" />
 
-    <Button
-        android:id="@+id/button_addImage23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="@string/afegir_imatge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOfferDescription" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="32dp"
+            android:text="Afegir oferta"
+            android:textColor="#000000"
+            android:theme="@style/Button.Green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextOfferPrice" />
 
-    <ImageView
-        android:id="@+id/imageView_fromDevice"
-        android:layout_width="85dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="52dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_addImage23" />
+        <Button
+            android:id="@+id/button_addImage23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="@string/afegir_imatge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextOfferDescription" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        <ImageView
+            android:id="@+id/imageView_fromDevice"
+            android:layout_width="191dp"
+            android:layout_height="137dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_addImage23" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

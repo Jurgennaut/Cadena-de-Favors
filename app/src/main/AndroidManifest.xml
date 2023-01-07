@@ -4,7 +4,7 @@
     package="com.example.cadenadefavors">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -18,13 +18,17 @@
         android:theme="@style/Theme.App.Main"
         tools:targetApi="31">
         <activity
+            android:name=".ListOfChatsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity2"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".RecoverPasswordActivity"
             android:exported="true" />
@@ -38,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
