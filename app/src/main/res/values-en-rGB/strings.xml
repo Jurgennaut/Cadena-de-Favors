@@ -43,4 +43,8 @@
         <item>Computing</item>
         <item>Gardening</item>
     </string-array>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="edit_favor">Edit favor</string>
+    <string name="save_favor">Save favor</string>
 </resources>

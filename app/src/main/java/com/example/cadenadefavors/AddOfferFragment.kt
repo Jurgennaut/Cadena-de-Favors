@@ -1,7 +1,9 @@
 package com.example.cadenadefavors
 
+import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
@@ -12,16 +14,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import coil.api.load
 import com.example.cadenadefavors.databinding.FragmentAddofferBinding
+import com.example.cadenadefavors.models.Offer
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
 
 
@@ -45,30 +51,35 @@ class AddOfferFragment : Fragment() {
     private var _binding: FragmentAddofferBinding? = null
     private val binding get() = _binding!!
 
+
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
-
     private lateinit var bitmapfrombytes:Bitmap
-    private lateinit var imgJpg:ByteArray
+    private var imgJpg:ByteArray?=null
     private lateinit var urlFromStorage:Uri
+
+    private var oldOffer: Offer?=null
+
+    private var editable:Boolean=false
 
     private val TAG = "addOffer"
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         // Handle the returned Uri
-        val bitmap = MediaStore.Images.Media.getBitmap(context?.getContentResolver(), uri)
-        val nubitmap = redimensionarImagen( bitmap!!, 200f, 200f)
-        val bos = ByteArrayOutputStream(1000)
+        if(uri!=null){
+            val bitmap = MediaStore.Images.Media.getBitmap(context?.getContentResolver(), uri)
+            val nubitmap = redimensionarImagen( bitmap!!, 200f, 200f)
+            val bos = ByteArrayOutputStream(1000)
 
-        if (nubitmap != null) {
-            nubitmap.compress(Bitmap.CompressFormat.PNG, 50, bos)
+            if (nubitmap != null) {
+                nubitmap.compress(Bitmap.CompressFormat.PNG, 50, bos)
 
-            imgJpg = bos.toByteArray() //podemos guardarla, etc
+                imgJpg = bos.toByteArray() //podemos guardarla, etc
 
-            bitmapfrombytes = BitmapFactory.decodeByteArray(imgJpg, 0, imgJpg.size, null)
-            binding.imageViewFromDevice.setImageBitmap(bitmapfrombytes)
+                bitmapfrombytes = BitmapFactory.decodeByteArray(imgJpg, 0, imgJpg!!.size, null)
+                binding.imageViewFromDevice.setImageBitmap(bitmapfrombytes)
+            }
         }
-
     }
 
     private var storage = FirebaseStorage.getInstance()
@@ -90,14 +101,21 @@ class AddOfferFragment : Fragment() {
         auth = Firebase.auth
 
         binding.buttonAddImage23.setOnClickListener{
-            Log.d("TAG", "hola23")
             getContent.launch("image/*")
         }
 
-        binding.button3.setOnClickListener{
-            Log.d("TAG", "hola3")
-            uploadImageToStorage(imgJpg)
-            insertOfferToDB()
+        binding.BtnSave.setOnClickListener{
+            var offerImage:String?=null
+            if(imgJpg!=null){
+                uploadImageToStorage(imgJpg!!)
+                insertOfferToDB("/userImages/${auth.uid.toString()}/${imgJpg}", it)
+            }else{
+                if(editable){
+                    insertOfferToDB(oldOffer!!.Image, it)
+                }else{
+                    Toast.makeText(context, "Debes añadir una imagen!", Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
         // Inflate the layout for this fragment
@@ -105,46 +123,89 @@ class AddOfferFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BlankFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddOfferFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        if(arguments?.isEmpty!! || arguments==null){
+
+        }else{
+            editable=true
+
+            binding.textView.text=getString(R.string.edit_favor)
+            binding.BtnSave.text=getString(R.string.save_favor)
+
+            val args: AddOfferFragmentArgs by navArgs()
+            oldOffer=args.oldOffer
+
+            binding.editTextTextOfferTitle.setText(oldOffer!!.Title)
+            binding.editTextOfferPrice.setText(oldOffer!!.Price.toString())
+            binding.editTextOfferDescription.setText(oldOffer!!.Description)
+
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imageRef = storageRef.child(oldOffer!!.Image)
+            imageRef.downloadUrl.addOnSuccessListener { url ->
+                binding.imageViewFromDevice.load(url)
+            }.addOnFailureListener {
+                Log.w("ERROR", "Error downloading image", it)
+            }
+
+            // Seleccionar categoria
+            var spinner=binding.menuCategories
+            var length=binding.menuCategories.adapter.count
+
+            for (i in 0 until length) {
+                if (spinner.getItemAtPosition(i).toString() == oldOffer!!.Category) {
+                    spinner.setSelection(i)
+                    break
                 }
             }
+        }
+
     }
 
-    private fun insertOfferToDB(){
+
+
+
+    private fun insertOfferToDB(offerImage:String, view:View){
         Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
+
         val offer = hashMapOf(
-            "categoria" to binding.menuCategories.selectedItem.toString(),
-            "descripcio" to binding.editTextOfferDescription.text.toString(),
-            "preu" to binding.editTextOfferPrice.text.toString(),
-            "imatge" to "/userImages/${auth.uid.toString()}/${imgJpg}"
+            "Title" to binding.editTextTextOfferTitle.text.toString(),
+            "Category" to binding.menuCategories.selectedItem.toString(),
+            "Description" to binding.editTextOfferDescription.text.toString(),
+            "Price" to binding.editTextOfferPrice.text.toString().toInt(),
+            "Image" to offerImage
         )
 
-// Add a new document with a generated ID
-        db.collection("usuaris").document(auth.currentUser!!.uid).collection("favors").document()
-            .set(offer)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
-            }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+//        db.collection("usuaris").document(auth.currentUser!!.uid).collection("favors").document()
+//            .set(offer)
+//            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!")
+//            }
+//            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
+        if(editable){
+            db.collection("usuaris")
+                .document(auth.currentUser!!.email.toString()).collection("favors")
+                .document(oldOffer!!.documentId.toString())
+                .set(offer)
+                .addOnSuccessListener { Ok() }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
+        }else{
+            db.collection("usuaris")
+                .document(auth.currentUser!!.email.toString()).collection("favors")
+                .document()
+                .set(offer)
+                .addOnSuccessListener { Ok() }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+        }
+
+    }
+    private fun Ok(){
+        Snackbar.make(
+            binding.root,
+            "Registro guardado",
+            BaseTransientBottomBar.LENGTH_LONG
+        ).setBackgroundTint(Color.parseColor("#79ab3c")).show()
     }
 
     private fun uploadImageToStorage(data:ByteArray){

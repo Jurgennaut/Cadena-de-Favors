@@ -13,7 +13,9 @@ import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMyFavorsBinding
 import com.example.cadenadefavors.models.Offer
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -55,6 +57,7 @@ class MyFavorsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding= FragmentMyFavorsBinding.inflate(inflater, container, false)
+        auth = Firebase.auth
         return binding.root
     }
 
@@ -72,23 +75,13 @@ class MyFavorsFragment : Fragment() {
         //generem el adapter
 
         getOffers()
+
     }
     private fun getOffers(){
-        val offers: MutableList<Offer> = arrayListOf()
-        db.collection("favors (cataleg)").get()
+        var offers: MutableList<Offer> = arrayListOf()
+        db.collection("usuaris").document(auth.currentUser!!.email.toString()).collection("favors").get()
             .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    offers.add(
-                        Offer(
-                        document.data["Title"].toString(),
-                        document.data["Owner"].toString(),
-                        document.data["Category"].toString(),
-                        document.data["Price"].toString().toInt(),
-                        document.data["Description"].toString(),
-                        document.data["Image"].toString(),
-                    )
-                    )
-                }
+                offers=documents.toObjects(Offer::class.java)
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)

@@ -43,4 +43,8 @@
         <item>Informática</item>
         <item>Jardinería</item>
     </string-array>
+    <string name="delete">Borrar</string>
+    <string name="edit">Borrar</string>
+    <string name="edit_favor">Editar favor</string>
+    <string name="save_favor">Guardar favor</string>
 </resources>

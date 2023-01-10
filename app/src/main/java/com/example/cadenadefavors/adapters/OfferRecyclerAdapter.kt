@@ -1,6 +1,8 @@
 package com.example.cadenadefavors.adapters
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,20 @@ import com.example.cadenadefavors.models.Offer
 import com.example.cadenadefavors.databinding.ItemOfferListBinding
 import coil.api.load
 import com.example.cadenadefavors.MainFragmentDirections
+import com.example.cadenadefavors.profile.MyFavorsFragmentDirections
 import com.google.android.gms.common.api.internal.LifecycleCallback.getFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 
 class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder>() {
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+    val storage = Firebase.storage
+    var storageRef = storage.reference
     private var offers: MutableList<Offer> = ArrayList()
     lateinit var context: Context
     private var isEditable: Boolean = false
@@ -41,32 +53,44 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
 
         with(holder){
             with(offers.get(position)){
-                binding.txtOfferTitle.text = this.offerTitle
+                binding.txtOfferTitle.text = this.Title
                // binding.txtDescription.text = this.offerDescription
                 //binding.txtOwner.text = "@"+this.offerOwner
-                binding.txtPrice.text= "Preu: "+ (this.offerPrice).toString()+" favos."
-                binding.imgOffer.load(this.offerImage)
+                binding.txtPrice.text= "Preu: "+ (this.Price).toString()+" favos."
                 //binding.txtOfferCategory.text="Categoria: "+this.offerCategory
-                /*
+
                  //Monstrar la imatge des de Storage de Firebase
                  val storageRef = FirebaseStorage.getInstance().reference
-                 val imageRef = storageRef.child("rv/${this.animalName}")
+                 val imageRef = storageRef.child(this.Image)
                  imageRef.downloadUrl.addOnSuccessListener { url ->
-                     binding.imgAnimal.load(url)
+
+                     binding.imgOffer.load(url)
+                     if(!isEditable){
+                         offers.get(position).Image=url.toString()
+                     }
+
+
                  }.addOnFailureListener {
-                     //mostrar error
-                 } */
+                     Log.w(TAG, "Error deleting document", it)
+                 }
 
                 if(isEditable){
                     binding.BtnBorrar.visibility= View.VISIBLE;
                     binding.BtnEditar.visibility= View.VISIBLE;
 
                     binding.BtnBorrar.setOnClickListener{
-
+                        db.collection("favors (cataleg)").document(this.documentId.toString())
+                            .delete()
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                        offers.remove(offers.get(position))
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position,offers.size);
                     }
 
-                    binding.BtnEditar.setOnClickListener{
-
+                    binding.BtnEditar.setOnClickListener{view ->
+                        val action = MyFavorsFragmentDirections.actionMyFavorsFragmentToAddOfferFragment(offers.get(position))
+                        view.findNavController()?.navigate(action)
                     }
                 }
             }

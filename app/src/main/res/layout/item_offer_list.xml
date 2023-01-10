@@ -88,8 +88,8 @@
             <Button
                 android:id="@+id/BtnBorrar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:text="@string/delete"
+                android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_delete_24"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"

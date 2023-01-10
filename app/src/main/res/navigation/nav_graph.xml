@@ -23,8 +23,12 @@
     <fragment
         android:id="@+id/addOfferFragment"
         android:name="com.example.cadenadefavors.AddOfferFragment"
-        android:label="fragment_addoffer"
-        tools:layout="@layout/fragment_addoffer" />
+        android:label="Registrar favor"
+        tools:layout="@layout/fragment_addoffer" >
+        <argument
+            android:name="oldOffer"
+            app:argType="com.example.cadenadefavors.models.Offer" />
+    </fragment>
     <fragment
         android:id="@+id/resultsFragment"
         android:name="com.example.cadenadefavors.ResultsFragment"
@@ -88,7 +92,15 @@
         android:id="@+id/myFavorsFragment"
         android:name="com.example.cadenadefavors.profile.MyFavorsFragment"
         android:label="fragment_my_favors"
-        tools:layout="@layout/fragment_my_favors" />
+        tools:layout="@layout/fragment_my_favors">
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_myFavorsFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myProfileViewFragment"
         android:name="com.example.cadenadefavors.profile.MyProfileViewFragment"

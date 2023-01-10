@@ -49,4 +49,6 @@
     <string name="intro_username">Nom d\'usuari</string>
     <string name="afegir_imatge">Afegir imatge</string>
     <string name="afegeix_una_oferta">Afegeix una oferta</string>
+    <string name="edit_favor">Editar favor</string>
+    <string name="save_favor">Guardar favor</string>
 </resources>

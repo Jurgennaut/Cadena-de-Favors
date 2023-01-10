@@ -55,12 +55,12 @@ class OfferFragment : Fragment() {
             val action = OfferFragmentDirections.actionOfferFragmentToAddOpinionFragment()
             view.findNavController()?.navigate(action)
         }
-        binding.currentOfferImage.load(currentOffer.offerImage);
-        binding.currentOfferDescription.text=currentOffer.offerDescription
-        binding.currentOfferPreu.text=currentOffer.offerPrice.toString()+" Favos"
-        binding.currentOfferTitle.text=currentOffer.offerTitle
+        binding.currentOfferImage.load(currentOffer.Image);
+        binding.currentOfferDescription.text=currentOffer.Description
+        binding.currentOfferPreu.text=currentOffer.Price.toString()+" Favos"
+        binding.currentOfferTitle.text=currentOffer.Title
 
-        //PROVISIONAL
+        // TODO: FALTA PARAMETRIZAR
         binding.offerOwnerImage.load("https://lh3.googleusercontent.com/ogw/AOh-ky26oQBAQfLLYX-BMRGv47t5Qn2S9qrBCvJhWXMx=s32-c-mo")
         binding.offerOwnerUsername.text="GerardoVega1234"
 
