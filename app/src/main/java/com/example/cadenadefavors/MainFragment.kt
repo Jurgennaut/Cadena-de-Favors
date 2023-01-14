@@ -13,8 +13,6 @@ import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
@@ -22,7 +20,6 @@ import com.example.cadenadefavors.models.Offer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -76,7 +73,7 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
-                        Toast.makeText(context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_LONG).show()
+                        auth.signOut()
                         true
                     }R.id.menu_myprofile -> {
                         Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()
