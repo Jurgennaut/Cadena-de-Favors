@@ -51,4 +51,13 @@
     <string name="afegeix_una_oferta">Afegeix una oferta</string>
     <string name="edit_favor">Editar favor</string>
     <string name="save_favor">Guardar favor</string>
+    <string name="inici">Inici</string>
+    <string name="oferta">Oferta</string>
+    <string name="registre">Registre</string>
+    <string name="autenticacio">Autenticació</string>
+    <string name="recupera_contrasenya">Recupera contrasenya</string>
+    <string name="resultats">Resultats</string>
+    <string name="transferir">Transferir</string>
+    <string name="valoracio">Valoració</string>
+    <string name="afegir_oferta">Afegir oferta</string>
 </resources>

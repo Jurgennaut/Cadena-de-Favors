@@ -1,10 +1,12 @@
 package com.example.cadenadefavors
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.api.load
@@ -48,10 +50,13 @@ class OfferFragment : Fragment() {
         val view = binding.root
         return view
     }
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentOffer=args.pOffer
 
-        binding.button6.setOnClickListener(){
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.oferta)
+
+            binding.button6.setOnClickListener(){
             val action = OfferFragmentDirections.actionOfferFragmentToAddOpinionFragment()
             view.findNavController()?.navigate(action)
         }

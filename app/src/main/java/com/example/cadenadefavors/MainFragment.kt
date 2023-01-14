@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -55,6 +56,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.inici)
+
         binding.chatButton.setOnClickListener{
             val chatIntent = Intent(context, ListOfChatsActivity::class.java)
             startActivity(chatIntent)
@@ -74,6 +77,7 @@ class MainFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
                         auth.signOut()
+                        Toast.makeText(context, auth.currentUser!!.uid,Toast.LENGTH_LONG).show()
                         true
                     }R.id.menu_myprofile -> {
                         Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()
@@ -122,5 +126,4 @@ class MainFragment : Fragment() {
                 }
             }
     }
-
 }
