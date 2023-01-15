@@ -107,23 +107,16 @@ class MainFragment : Fragment() {
     private fun getOffers(){
         var offers: MutableList<Offer> = arrayListOf()
 
-        db.collection("usuaris").get()
-            .addOnSuccessListener{ documents ->
-                for(document in documents){
-                    db.collection("usuaris").document(document.id).collection("favors").get()
-                        .addOnSuccessListener {
-                            for(docs in it){
-                                offers.add(docs.toObject(Offer::class.java))
-                            }
-                        }.addOnFailureListener { exception ->
-                            Log.w(TAG, "Error getting documents: ", exception)
-                        }.addOnCompleteListener {
-                            myAdapter.OffersRecyclerAdapter(offers,requireContext())
-                            binding.rvOffers.adapter = myAdapter
-
-                        }
-                }
+        db.collection("favors").get()
+            .addOnSuccessListener { documents ->
+                offers=documents.toObjects(Offer::class.java)
+            }.addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }.addOnCompleteListener {
+                myAdapter.OffersRecyclerAdapter(offers,requireContext())
+                binding.rvOffers.adapter = myAdapter
             }
+
     }
 
 }

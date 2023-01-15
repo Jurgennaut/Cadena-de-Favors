@@ -1,6 +1,8 @@
 package com.example.cadenadefavors
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,9 @@ import androidx.navigation.fragment.navArgs
 import coil.api.load
 import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.example.cadenadefavors.databinding.FragmentOfferBinding
+import com.example.cadenadefavors.models.Offer
+import com.example.cadenadefavors.models.User
+import com.google.firebase.storage.FirebaseStorage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,24 +55,38 @@ class OfferFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentOffer=args.pOffer
+        val storageRef = FirebaseStorage.getInstance().reference
 
-        binding.button6.setOnClickListener(){
-            val action = OfferFragmentDirections.actionOfferFragmentToAddOpinionFragment()
-            view.findNavController()?.navigate(action)
-        }
         binding.currentOfferImage.load(currentOffer.Image);
         binding.currentOfferDescription.text=currentOffer.Description
         binding.currentOfferPreu.text=currentOffer.Price.toString()+" Favos"
         binding.currentOfferTitle.text=currentOffer.Title
 
-        // TODO: FALTA PARAMETRIZAR
-        binding.offerOwnerImage.load("https://lh3.googleusercontent.com/ogw/AOh-ky26oQBAQfLLYX-BMRGv47t5Qn2S9qrBCvJhWXMx=s32-c-mo")
-        binding.offerOwnerUsername.text="GerardoVega1234"
+        db.collection("usuaris").document(currentOffer.Owner).get()
+            .addOnSuccessListener { user ->
 
-        binding.offerOwnerImage.setOnClickListener{
-            val action = OfferFragmentDirections.actionOfferFragmentToProfileFragment()
-            view.findNavController()?.navigate(action)
-        }
+                var userObj=user.toObject(User::class.java)!!
+                val imageRef = storageRef.child(user["Photo"].toString())
+                imageRef.downloadUrl.addOnSuccessListener { url ->
+                    binding.offerOwnerImage.load(url)
+                }.addOnFailureListener {
+                    Log.w("ERROR", "Error downloading image", it)
+                }
+
+                binding.offerOwnerUsername.text=user["Username"].toString()
+                binding.userPuntuation.rating=user["Puntuation"].toString().toFloat()
+                binding.offerOwnerImage.setOnClickListener{
+                    val action = OfferFragmentDirections.actionOfferFragmentToProfileFragment(userObj)
+                    view.findNavController()?.navigate(action)
+                }
+
+
+                binding.button6.setOnClickListener(){
+                    val action = OfferFragmentDirections.actionOfferFragmentToAddOpinionFragment(userObj!!, currentOffer!!)
+                    view.findNavController()?.navigate(action)
+                }
+
+            }
     }
 
     override fun onDestroyView() {

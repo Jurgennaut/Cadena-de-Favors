@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_offerFragment"
             app:destination="@id/offerFragment" />
+        <argument
+            android:name="pUser"
+            app:argType="com.example.cadenadefavors.models.User" />
     </fragment>
     <fragment
         android:id="@+id/addOfferFragment"
@@ -67,12 +70,22 @@
         <action
             android:id="@+id/action_offerFragment_to_addOpinionFragment"
             app:destination="@id/addOpinionFragment" />
+        <action
+            android:id="@+id/action_offerFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOpinionFragment"
         android:name="com.example.cadenadefavors.AddOpinionFragment"
         android:label="fragment_add_opinion"
-        tools:layout="@layout/fragment_add_opinion" />
+        tools:layout="@layout/fragment_add_opinion" >
+        <argument
+            android:name="pUser"
+            app:argType="com.example.cadenadefavors.models.User" />
+        <argument
+            android:name="pOffer"
+            app:argType="com.example.cadenadefavors.models.Offer" />
+    </fragment>
     <fragment
         android:id="@+id/myProfileOptionsFragment"
         android:name="com.example.cadenadefavors.profile.MyProfileOptionsFragment"
@@ -82,11 +95,11 @@
             android:id="@+id/action_myProfileOptionsFragment_to_myFavorsFragment"
             app:destination="@id/myFavorsFragment" />
         <action
-            android:id="@+id/action_myProfileOptionsFragment_to_myProfileViewFragment"
-            app:destination="@id/myProfileViewFragment" />
-        <action
             android:id="@+id/action_myProfileOptionsFragment_to_myProfileEditFragment"
             app:destination="@id/myProfileEditFragment" />
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/myFavorsFragment"
@@ -102,13 +115,17 @@
             app:destination="@id/addOfferFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myProfileViewFragment"
-        android:name="com.example.cadenadefavors.profile.MyProfileViewFragment"
-        android:label="fragment_my_profile_view"
-        tools:layout="@layout/fragment_my_profile_view" />
-    <fragment
         android:id="@+id/myProfileEditFragment"
         android:name="com.example.cadenadefavors.profile.MyProfileEditFragment"
         android:label="fragment_my_profile_edit"
         tools:layout="@layout/fragment_my_profile_edit" />
+    <fragment
+        android:id="@+id/profileOpinionsFragment"
+        android:name="com.example.cadenadefavors.profile.ProfileOpinionsFragment"
+        android:label="fragment_profile_opinions"
+        tools:layout="@layout/fragment_profile_opinions" >
+        <argument
+            android:name="pUser"
+            app:argType="com.example.cadenadefavors.models.User" />
+    </fragment>
 </navigation>

@@ -79,10 +79,17 @@ class OfferRecyclerAdapter: RecyclerView.Adapter<OfferRecyclerAdapter.ViewHolder
                     binding.BtnEditar.visibility= View.VISIBLE;
 
                     binding.BtnBorrar.setOnClickListener{
-                        db.collection("favors (cataleg)").document(this.documentId.toString())
+
+                        db.collection("usuaris").document(this.Owner).collection("favors").document(this.documentId.toString())
                             .delete()
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+                        db.collection("favors").document(this.documentId.toString())
+                            .delete()
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
                         offers.remove(offers.get(position))
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position,offers.size);
