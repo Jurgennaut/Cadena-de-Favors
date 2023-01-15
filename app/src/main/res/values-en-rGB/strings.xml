@@ -47,4 +47,13 @@
     <string name="edit">Edit</string>
     <string name="edit_favor">Edit favor</string>
     <string name="save_favor">Save favor</string>
+    <string name="inici">Home</string>
+    <string name="oferta">Offer</string>
+    <string name="registre">Register</string>
+    <string name="autenticacio">Log in</string>
+    <string name="recupera_contrasenya">Passwod recovery</string>
+    <string name="resultats">Results</string>
+    <string name="transferir">Transfer</string>
+    <string name="valoracio">Rating</string>
+    <string name="afegir_oferta">Add offer</string>
 </resources>

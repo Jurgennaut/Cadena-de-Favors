@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        title = "Autenticació"
+        title = getString(R.string.autenticacio)
 
         binding.login.setOnClickListener {
 

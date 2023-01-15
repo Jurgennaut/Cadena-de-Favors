@@ -10,11 +10,10 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cadenadefavors.adapters.OfferRecyclerAdapter
 import com.example.cadenadefavors.databinding.FragmentMainBinding
@@ -22,7 +21,6 @@ import com.example.cadenadefavors.models.Offer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -58,6 +56,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.inici)
+
         binding.chatButton.setOnClickListener{
             val chatIntent = Intent(context, ListOfChatsActivity::class.java)
             startActivity(chatIntent)
@@ -76,7 +76,8 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
-                        Toast.makeText(context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_LONG).show()
+                        auth.signOut()
+                        Toast.makeText(context, auth.currentUser!!.uid,Toast.LENGTH_LONG).show()
                         true
                     }R.id.menu_myprofile -> {
                         Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()
@@ -118,5 +119,4 @@ class MainFragment : Fragment() {
             }
 
     }
-
 }

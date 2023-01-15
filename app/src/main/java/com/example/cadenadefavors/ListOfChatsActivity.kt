@@ -109,13 +109,4 @@ class ListOfChatsActivity : AppCompatActivity() {
         intent.putExtra("usuari", auth.currentUser!!.email!!)
         startActivity(intent)
     }
-
-    private fun showAlert() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("L'operació ha fallat. ${auth.currentUser!!.uid}")
-        builder.setPositiveButton("Acceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
 }

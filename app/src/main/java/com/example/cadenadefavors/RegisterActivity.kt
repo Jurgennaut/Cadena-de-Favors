@@ -78,6 +78,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
     private fun setup() {
+        title = getString(R.string.registre)
 
         binding.btnCamera.setOnClickListener{
             getContent.launch("image/*")
