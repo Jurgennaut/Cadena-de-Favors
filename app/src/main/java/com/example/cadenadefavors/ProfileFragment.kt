@@ -47,7 +47,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.chatButton.setOnClickListener{
-            val chatIntent = Intent(context, ListOfChatsActivity(args.pUser.Email)::class.java)
+            Log.d("tag",args.pUser.Email)
+            val chatIntent = Intent(context, ListOfChatsActivity::class.java)
+            chatIntent.putExtra("email",args.pUser.Email);
             startActivity(chatIntent)
         }
 

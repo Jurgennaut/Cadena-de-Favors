@@ -68,6 +68,7 @@ class OfferFragment : Fragment() {
 
                 var userObj=user.toObject(User::class.java)!!
                 val imageRef = storageRef.child(user["Photo"].toString())
+
                 imageRef.downloadUrl.addOnSuccessListener { url ->
                     binding.offerOwnerImage.load(url)
                 }.addOnFailureListener {

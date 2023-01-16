@@ -90,7 +90,8 @@ class MainFragment : Fragment() {
                         Toast.makeText(context, auth.currentUser!!.uid,Toast.LENGTH_LONG).show()
                         true
                     }R.id.menu_myprofile -> {
-                        Toast.makeText(context, "ENTRAMOS A MENU MYPROFILE",Toast.LENGTH_LONG).show()
+                        val chatIntent = Intent(context, ListOfChatsActivity::class.java)
+                        startActivity(chatIntent)
                         true
                     }
                     else -> false
