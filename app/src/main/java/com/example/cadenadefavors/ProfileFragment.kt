@@ -45,7 +45,6 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.el_meu_perfil)
         manageBarMenu()
         var user=args.pUser
         binding.userName.text=user.Username

@@ -62,6 +62,7 @@ class OfferFragment : Fragment() {
         binding.currentOfferPreu.text=currentOffer.Price.toString()+" Favos"
         binding.currentOfferTitle.text=currentOffer.Title
 
+        //email currentOffer.Owner
         db.collection("usuaris").document(currentOffer.Owner).get()
             .addOnSuccessListener { user ->
 
