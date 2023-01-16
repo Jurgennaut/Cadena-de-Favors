@@ -2,6 +2,7 @@ package com.example.cadenadefavors
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cadenadefavors.models.Message
 import com.example.cadenadefavors.adapters.MessageAdapter
@@ -26,6 +27,15 @@ class ChatActivity : AppCompatActivity() {
 
         val view = binding.root
         setContentView(view)
+
+        val intent = intent
+        val message = intent.getStringExtra("message")
+        if(!message.isNullOrEmpty()) {
+            AlertDialog.Builder(this)
+                .setTitle("Notification")
+                .setMessage(message)
+                .setPositiveButton("Ok") { dialog, which -> }.show()
+        }
 
         //setContentView(R.layout.activity_chat)
 

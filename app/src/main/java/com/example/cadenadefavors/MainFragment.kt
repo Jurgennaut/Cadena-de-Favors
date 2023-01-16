@@ -1,6 +1,9 @@
 package com.example.cadenadefavors
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.util.Log
@@ -10,7 +13,9 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -30,6 +35,16 @@ import com.google.firebase.storage.ktx.storage
  * create an instance of this fragment.
  */
 class MainFragment : Fragment() {
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+        } else {
+            // TODO: Inform user that that your app will not show notifications.
+        }
+    }
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
