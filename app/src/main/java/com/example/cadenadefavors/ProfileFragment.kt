@@ -1,15 +1,14 @@
 package com.example.cadenadefavors
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
+import androidx.navigation.fragment.navArgs
+import coil.api.load
 import com.example.cadenadefavors.databinding.FragmentProfileBinding
 import com.example.cadenadefavors.profile.ProfileOpinionsFragment
+import com.google.firebase.storage.FirebaseStorage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,9 +24,11 @@ private var currentFragment: String?= "ResultsFragment"
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
+    val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +44,29 @@ class ProfileFragment : Fragment() {
 
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.el_meu_perfil)
+        manageBarMenu()
+        var user=args.pUser
+        binding.userName.text=user.Username
+        binding.userRating.rating=user.Puntuation
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child(user.Photo)
+        imageRef.downloadUrl.addOnSuccessListener { url ->
+            binding.userPhoto.load(url)
+        }.addOnFailureListener {
+            Log.w("ERROR", "Error downloading image", it)
+        }
+        var fr : Fragment? =null
+        var requestedFragment: String?=null
+        fr = ResultsFragment(args.pUser.Email)
+        requestedFragment="ResultsFragment"
+        currentFragment=requestedFragment
 
-            manageBarMenu()
+        var fm=parentFragmentManager
+        var ft=fm.beginTransaction()
+
+        ft.replace(R.id.fragmentContainerView5,fr)
+        ft.commit()
     }
 
     private fun manageBarMenu(){
@@ -57,13 +76,17 @@ class ProfileFragment : Fragment() {
 
             when(it.itemId){
                 R.id.menu_Offers -> {
-                    fr = ResultsFragment()
+                    fr = ResultsFragment(args.pUser.Email)
+                    val bundle = Bundle()
+                    bundle.putString("email", args.pUser.Email)
+                    fr.setArguments(bundle)
+
                     requestedFragment="ResultsFragment"
                 }R.id.menu_Opinions -> {
-                    fr=ProfileOpinionsFragment()
+                    fr=ProfileOpinionsFragment(args.pUser.Email)
                     requestedFragment="ProfileOpinionsFragment"
                 }R.id.menu_info -> {
-                    fr=ProfileOpinionsFragment()
+                    fr=ProfileOpinionsFragment(args.pUser.Email)
                     requestedFragment="ProfileOpinionsFragment"
                 }
             }

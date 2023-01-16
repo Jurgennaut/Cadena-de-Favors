@@ -1,20 +1,27 @@
 package com.example.cadenadefavors
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import coil.api.load
 import com.example.cadenadefavors.databinding.FragmentAddOpinionBinding
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firestore.v1.WriteResult
 import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +43,8 @@ class AddOpinionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val args: AddOpinionFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,7 +64,16 @@ class AddOpinionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.valoracio)
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child(args.pUser.Photo)
+
+        imageRef.downloadUrl.addOnSuccessListener { url ->
+            binding.imageViewOpinionerPhoto.load(url)
+        }.addOnFailureListener {
+            Log.w("ERROR", "Error downloading image", it)
+        }
+        binding.textUsername.text=args.pUser.Username
+        binding.textOfferTitle.text=args.pOffer.Title
 
         binding.scoreUserBtn.setOnClickListener(){
             val score=binding.ratingBar.rating.toString()
@@ -66,23 +84,43 @@ class AddOpinionFragment : Fragment() {
     }
     private fun insertOpinionToDb(){
 
+        var puntuation=binding.ratingBar.rating.toString().toFloat()
         val opinion = hashMapOf(
-            "descripcio" to binding.opinionDescriptionTxt.text.toString(),
-            "puntuacio" to binding.ratingBar.rating.toString().toDouble()
+            "Description" to binding.opinionDescriptionTxt.text.toString(),
+            "Puntuation" to puntuation,
+            "Owner" to auth.currentUser!!.email,
+            "Favor" to args.pOffer.documentId
         )
-// Add a new document with a generated ID
-        val sdf = SimpleDateFormat("yyyyMddHmmss")
-        val currentDate = sdf.format(Date())
 
-        db.collection("usuaris").document("9IcZw2xLcNp4csRwdnSE")
-            .collection("valoracions").document(auth.uid!!+"_"+currentDate)
+        var dbuser=db.collection("usuaris").document(args.pUser.Email);
+
+        dbuser.collection("valoracions").document()
                 .set(opinion)
                 .addOnSuccessListener {
-                    Toast.makeText(context,"OPINION GRABADA CORRECTAMENTE" , Toast.LENGTH_SHORT).show()
+                    Ok()
                 }
                 .addOnFailureListener {
                     Toast.makeText(context,"ERROR" , Toast.LENGTH_SHORT).show()
                 }
+        dbuser.update(
+            "TotalPuntuation", FieldValue.increment(puntuation.toDouble()),
+            "TimesPuntuated",FieldValue.increment(1)).addOnSuccessListener {
+
+                dbuser.get()
+                    .addOnSuccessListener { user->
+
+                        dbuser.update("Puntuation", (user["TotalPuntuation"].toString().toDouble()/user["TimesPuntuated"].toString().toDouble()))
+                    }
+        }
+
+
+    }
+    private fun Ok(){
+        Snackbar.make(
+            binding.root,
+            "Registro guardado",
+            BaseTransientBottomBar.LENGTH_LONG
+        ).setBackgroundTint(Color.parseColor("#79ab3c")).show()
     }
 
 

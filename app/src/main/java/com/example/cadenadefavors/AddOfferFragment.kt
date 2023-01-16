@@ -103,7 +103,6 @@ class AddOfferFragment : Fragment() {
         }
 
         binding.BtnSave.setOnClickListener{
-            var offerImage:String?=null
             if(imgJpg!=null){
                 uploadImageToStorage(imgJpg!!)
                 insertOfferToDB("/userImages/${auth.uid.toString()}/${imgJpg}", it)
@@ -171,7 +170,8 @@ class AddOfferFragment : Fragment() {
             "Category" to binding.menuCategories.selectedItem.toString(),
             "Description" to binding.editTextOfferDescription.text.toString(),
             "Price" to binding.editTextOfferPrice.text.toString().toInt(),
-            "Image" to offerImage
+            "Image" to offerImage,
+            "Owner" to auth.currentUser!!.email.toString()
         )
 
 //        db.collection("usuaris").document(auth.currentUser!!.uid).collection("favors").document()
@@ -188,10 +188,24 @@ class AddOfferFragment : Fragment() {
                 .addOnSuccessListener { Ok() }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
+            db.collection("favors")
+                .document(oldOffer!!.documentId.toString())
+                .set(offer)
+                .addOnSuccessListener { Ok() }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
         }else{
-            db.collection("usuaris")
+           var ref= db.collection("usuaris")
                 .document(auth.currentUser!!.email.toString()).collection("favors")
                 .document()
+            var docId=ref.id
+
+            ref.set(offer)
+                .addOnSuccessListener {
+                }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+            db.collection("favors")
+                .document(docId)
                 .set(offer)
                 .addOnSuccessListener { Ok() }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }

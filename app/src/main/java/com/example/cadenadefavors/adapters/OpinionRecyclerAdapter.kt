@@ -1,22 +1,29 @@
 package com.example.cadenadefavors.adapters
 
+import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.example.cadenadefavors.MainFragmentDirections
-import com.example.cadenadefavors.databinding.FragmentMainBinding
 import com.example.cadenadefavors.databinding.ItemOpinionListBinding
 import com.example.cadenadefavors.models.Opinion
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 import androidx.navigation.findNavController as findNavController1
 
 class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHolder>() {
     var opinions: MutableList<Opinion> = ArrayList()
+
+    val db = Firebase.firestore
+    val storage = Firebase.storage
+    var storageRef = storage.reference
+
     lateinit var context: Context
 
     //constructor de la classe on es passa la font de dades i el context sobre el que es mostrarà
@@ -40,11 +47,26 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
 
         with(holder){
             with(opinions[position]){
-                binding.textOpinionDescription.text = this.opinionDescription
-                binding.textOpinionOwner.text = "@"+this.opinionOwner
-                binding.textOpinionerFavorReceived.text = "Va demanar: \n"+this.opinionerFavorReceived
-                binding.imageViewOpinionerPhoto.load(this.opinionerPhoto)
-                binding.imageViewOpinionerStarsGiven.setImageResource(this.stars)
+                binding.textOpinionDescription.text = this.Description
+
+                db.collection("favors").document(this.Favor).get()
+                    .addOnSuccessListener { favor ->
+                        binding.textOpinionerFavorReceived.text = favor["Title"].toString()
+                    }
+
+                db.collection("usuaris").document(this.Owner).get()
+                    .addOnSuccessListener { user ->
+                        binding.textOpinionOwner.text = user["Username"].toString()
+
+                        val imageRef = storageRef.child(user["Photo"].toString())
+                        imageRef.downloadUrl.addOnSuccessListener { url ->
+                            binding.imageViewOpinionerPhoto.load(url)
+                        }.addOnFailureListener {
+                            Log.w(ContentValues.TAG, "Error deleting document", it)
+                        }
+                    }
+                binding.ratingBar2.rating=this.Puntuation
+
                 /*
                  //Monstrar la imatge des de Storage de Firebase
                  val storageRef = FirebaseStorage.getInstance().reference
@@ -61,7 +83,7 @@ class OpinionRecyclerAdapter: RecyclerView.Adapter<OpinionRecyclerAdapter.ViewHo
 
         //estamblim un listener
         holder.itemView.setOnClickListener { view ->
-            Toast.makeText(view.context, "ENTRAMOS A MENU LOGOUT",Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "CLICK",Toast.LENGTH_SHORT).show()
             Log.d("TAG","message: "+view.context)
         }
     }

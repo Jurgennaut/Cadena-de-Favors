@@ -7,6 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.cadenadefavors.databinding.FragmentMyProfileOptionsBinding
+import com.example.cadenadefavors.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +31,10 @@ class MyProfileOptionsFragment : Fragment() {
     private var _binding: FragmentMyProfileOptionsBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+    val storage = Firebase.storage
+    var storageRef = storage.reference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,6 +49,7 @@ class MyProfileOptionsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMyProfileOptionsBinding.inflate(inflater, container, false)
+        auth=Firebase.auth
         return binding.root
     }
 
@@ -52,8 +63,13 @@ class MyProfileOptionsFragment : Fragment() {
             view?.findNavController()?.navigate(action)
         }
         binding.BtnSeeMyProfile.setOnClickListener {
-            val action = MyProfileOptionsFragmentDirections.actionMyProfileOptionsFragmentToMyProfileViewFragment()
-            view?.findNavController()?.navigate(action)
+
+            db.collection("usuaris").document(auth.currentUser!!.email.toString()).get()
+                .addOnSuccessListener { user->
+                    var currentUser=user.toObject(User::class.java)
+                    val action = MyProfileOptionsFragmentDirections.actionMyProfileOptionsFragmentToProfileFragment(currentUser!!)
+                    view?.findNavController()?.navigate(action)
+                }
         }
         binding.BtnMyFavors.setOnClickListener {
             val action = MyProfileOptionsFragmentDirections.actionMyProfileOptionsFragmentToMyFavorsFragment()

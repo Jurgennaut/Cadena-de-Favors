@@ -1,16 +1,22 @@
 package com.example.cadenadefavors.profile
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cadenadefavors.R
-import com.example.cadenadefavors.models.Opinion
 import com.example.cadenadefavors.adapters.OpinionRecyclerAdapter
-import com.example.cadenadefavors.databinding.FragmentProfileBinding
+import com.example.cadenadefavors.databinding.FragmentMyFavorsBinding
 import com.example.cadenadefavors.databinding.FragmentProfileOpinionsBinding
+import com.example.cadenadefavors.models.Offer
+import com.example.cadenadefavors.models.Opinion
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 
 private var _binding: FragmentProfileOpinionsBinding? = null
@@ -23,10 +29,16 @@ private val myAdapter: OpinionRecyclerAdapter = OpinionRecyclerAdapter()
  * Use the [ProfileOpinionsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileOpinionsFragment : Fragment() {
+class ProfileOpinionsFragment(userEmail: String) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    var email=userEmail
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+    val storage = Firebase.storage
+    var storageRef = storage.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,51 +67,21 @@ class ProfileOpinionsFragment : Fragment() {
         binding.rvOpinions.layoutManager = LinearLayoutManager(context)
 
         //generem el adapter
-        myAdapter.OpinionRecyclerAdapter(getOpinions()) //, getContext())
-
-        //assignem el adapter al RV
-        binding.rvOpinions.adapter = myAdapter
+        getOpinions()
     }
 
-    private fun getOpinions() : MutableList<Opinion>{
-        val opinions: MutableList<Opinion> = arrayListOf()
-        opinions.add(
-            Opinion(
-                "AlbertElLiante",
-                "Estava trencat, jo no he estat",
-                "Portàtil",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEfVUCNin7RsJNc3_pcL-4Mqk8STnqlGtuQ&usqp=CAU",
-                R.drawable.puntuacion_max
-            )
-        )
-        opinions.add(
-            Opinion(
-                "Gerardo V",
-                "El gos no es va cansar gaire..",
-                "Passejar el gos",
-                "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
-                R.drawable.puntuacion_media
-            )
-        )
-        opinions.add(
-            Opinion(
-                "Jordi O",
-                "Molt bo, tot perfecte",
-                "Entrepà",
-                "https://okdiario.com/img/2022/02/08/receta-de-bocata-trufado.jpg",
-                R.drawable.puntuacion_quasi_max
-            )
-        )
-        opinions.add(
-            Opinion(
-                "AlbertElLiante",
-                "Estava trencat, jo no he estat",
-                "Portàtil",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEfVUCNin7RsJNc3_pcL-4Mqk8STnqlGtuQ&usqp=CAU",
-                R.drawable.puntuacion_max
-            )
-        )
-        return opinions
+    private fun getOpinions(){
+        var opinions: MutableList<Opinion> = arrayListOf()
+        db.collection("usuaris").document(email).collection("valoracions").get()
+            .addOnSuccessListener { documents ->
+                opinions=documents.toObjects(Opinion::class.java)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+            }.addOnCompleteListener {
+                myAdapter.OpinionRecyclerAdapter(opinions) //, getContext())
+                binding.rvOpinions.adapter = myAdapter
+            }
     }
 
 }
