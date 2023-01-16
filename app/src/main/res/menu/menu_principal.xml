@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_myprofile"
         android:icon="@drawable/logo"
-        android:title="@string/el_meu_perfil" />
+        android:title="Chat" />
     <item android:id="@+id/menu_logout"
         android:icon="@drawable/logo"
         android:title="@string/logout" />

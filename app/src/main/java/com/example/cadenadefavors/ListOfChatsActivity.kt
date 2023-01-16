@@ -2,6 +2,7 @@ package com.example.cadenadefavors
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +15,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-class ListOfChatsActivity(email: String?) : AppCompatActivity() {
+class ListOfChatsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListOfChatsBinding
     private lateinit var auth: FirebaseAuth
 
     private var user = ""
-    private var userEmail = email
     private var db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +44,13 @@ class ListOfChatsActivity(email: String?) : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.newChatText.setText(userEmail)
 
-        binding.newChatButton.setOnClickListener {
 
-            newChat()
+        var email: String?= intent.extras?.getString("email")
+        if(email!=null){
+            newChat(email)
         }
+
 
     }
 
@@ -90,11 +91,11 @@ class ListOfChatsActivity(email: String?) : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun newChat(){
+    private fun newChat(email:String){
         val chatId = UUID.randomUUID().toString()
-        val otherUser = binding.newChatText.text.toString()
+        val otherUser = email
 
-        val users = listOf(user, otherUser)
+        val users = listOf(user, otherUser!!)
 
         val chat = Chat(
             id = chatId,
