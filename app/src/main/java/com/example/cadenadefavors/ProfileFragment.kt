@@ -1,5 +1,6 @@
 package com.example.cadenadefavors
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -45,6 +46,11 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.chatButton.setOnClickListener{
+            val chatIntent = Intent(context, ListOfChatsActivity(args.pUser.Email)::class.java)
+            startActivity(chatIntent)
+        }
+
         manageBarMenu()
         var user=args.pUser
         binding.userName.text=user.Username

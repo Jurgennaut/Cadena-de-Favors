@@ -103,5 +103,15 @@
         app:layout_constraintTop_toBottomOf="@+id/userPhoto"
         app:layout_constraintVertical_bias="0.602" />
 
+    <Button
+        android:id="@+id/chat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xat"
+        app:layout_constraintBottom_toTopOf="@+id/userRating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

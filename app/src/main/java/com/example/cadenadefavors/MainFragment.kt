@@ -73,11 +73,6 @@ class MainFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.inici)
 
-        binding.chatButton.setOnClickListener{
-            val chatIntent = Intent(context, ListOfChatsActivity::class.java)
-            startActivity(chatIntent)
-        }
-
         setupRecyclerView()
         setupMenu()
     }
