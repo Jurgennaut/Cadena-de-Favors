@@ -14,7 +14,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-class ListOfChatsActivity(email: String?) : AppCompatActivity() {
+class ListOfChatsActivity(email: String="") : AppCompatActivity() {
 
     private lateinit var binding: ActivityListOfChatsBinding
     private lateinit var auth: FirebaseAuth
