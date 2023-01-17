@@ -87,7 +87,7 @@ class MainFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.menu_logout -> {
                         auth.signOut()
-                        Toast.makeText(context, auth.currentUser!!.uid,Toast.LENGTH_LONG).show()
+                        showLogIn()
                         true
                     }R.id.menu_myprofile -> {
                         val chatIntent = Intent(context, ListOfChatsActivity::class.java)
@@ -128,6 +128,13 @@ class MainFragment : Fragment() {
                 myAdapter.OffersRecyclerAdapter(offers,requireContext())
                 binding.rvOffers.adapter = myAdapter
             }
+
+    }
+
+    private fun showLogIn() {
+        val LogInIntent = Intent(context, LoginActivity::class.java)
+        LogInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(LogInIntent)
 
     }
 }

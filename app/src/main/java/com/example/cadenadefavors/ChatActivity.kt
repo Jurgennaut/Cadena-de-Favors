@@ -81,6 +81,8 @@ class ChatActivity : AppCompatActivity() {
 
         db.collection("chats").document(chatId).collection("messages").document().set(message)
 
+
+
         binding.messageTextField.setText("")
 
 
