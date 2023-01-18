@@ -1,4 +1,4 @@
-package com.example.cadenadefavors
+package com.app.cadenadefavors
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.Navigation

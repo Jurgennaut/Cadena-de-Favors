@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.cadenadefavors">
+    package="com.app.cadenadefavors">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,22 +19,22 @@
         android:theme="@style/Theme.App.Main"
         tools:targetApi="31">
         <activity
-            android:name=".ListOfChatsActivity"
+            android:name="com.app.cadenadefavors.ListOfChatsActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatActivity"
+            android:name="com.app.cadenadefavors.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name="com.app.cadenadefavors.MainActivity2"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.app.cadenadefavors.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".RecoverPasswordActivity"
+            android:name="com.app.cadenadefavors.RecoverPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.app.cadenadefavors.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".firebase.MyFirebaseMessagingService"
+            android:name="com.app.cadenadefavors.firebase.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

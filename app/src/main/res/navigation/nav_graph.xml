@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.cadenadefavors.ProfileFragment"
+        android:name="com.app.cadenadefavors.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -21,30 +21,30 @@
             app:destination="@id/offerFragment" />
         <argument
             android:name="pUser"
-            app:argType="com.example.cadenadefavors.models.User" />
+            app:argType="com.app.cadenadefavors.models.User" />
     </fragment>
     <fragment
         android:id="@+id/addOfferFragment"
-        android:name="com.example.cadenadefavors.AddOfferFragment"
+        android:name="com.app.cadenadefavors.AddOfferFragment"
         android:label="Registrar favor"
         tools:layout="@layout/fragment_addoffer" >
         <argument
             android:name="oldOffer"
-            app:argType="com.example.cadenadefavors.models.Offer" />
+            app:argType="com.app.cadenadefavors.models.Offer" />
     </fragment>
     <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.example.cadenadefavors.ResultsFragment"
+        android:name="com.app.cadenadefavors.ResultsFragment"
         android:label="fragment_results"
         tools:layout="@layout/fragment_results" />
     <fragment
         android:id="@+id/transferFragment"
-        android:name="com.example.cadenadefavors.TransferFragment"
+        android:name="com.app.cadenadefavors.TransferFragment"
         android:label="fragment_transfer"
         tools:layout="@layout/fragment_transfer" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.cadenadefavors.MainFragment"
+        android:name="com.app.cadenadefavors.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -58,12 +58,12 @@
     </fragment>
     <fragment
         android:id="@+id/offerFragment"
-        android:name="com.example.cadenadefavors.OfferFragment"
+        android:name="com.app.cadenadefavors.OfferFragment"
         android:label="fragment_offer"
         tools:layout="@layout/fragment_offer" >
         <argument
             android:name="pOffer"
-            app:argType="com.example.cadenadefavors.models.Offer" />
+            app:argType="com.app.cadenadefavors.models.Offer" />
         <action
             android:id="@+id/action_offerFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -76,19 +76,19 @@
     </fragment>
     <fragment
         android:id="@+id/addOpinionFragment"
-        android:name="com.example.cadenadefavors.AddOpinionFragment"
+        android:name="com.app.cadenadefavors.AddOpinionFragment"
         android:label="fragment_add_opinion"
         tools:layout="@layout/fragment_add_opinion" >
         <argument
             android:name="pUser"
-            app:argType="com.example.cadenadefavors.models.User" />
+            app:argType="com.app.cadenadefavors.models.User" />
         <argument
             android:name="pOffer"
-            app:argType="com.example.cadenadefavors.models.Offer" />
+            app:argType="com.app.cadenadefavors.models.Offer" />
     </fragment>
     <fragment
         android:id="@+id/myProfileOptionsFragment"
-        android:name="com.example.cadenadefavors.profile.MyProfileOptionsFragment"
+        android:name="com.app.cadenadefavors.profile.MyProfileOptionsFragment"
         android:label="fragment_my_profile_options"
         tools:layout="@layout/fragment_my_profile_options" >
         <action
@@ -103,7 +103,7 @@
     </fragment>
     <fragment
         android:id="@+id/myFavorsFragment"
-        android:name="com.example.cadenadefavors.profile.MyFavorsFragment"
+        android:name="com.app.cadenadefavors.profile.MyFavorsFragment"
         android:label="fragment_my_favors"
         tools:layout="@layout/fragment_my_favors">
         <action
@@ -116,16 +116,16 @@
     </fragment>
     <fragment
         android:id="@+id/myProfileEditFragment"
-        android:name="com.example.cadenadefavors.profile.MyProfileEditFragment"
+        android:name="com.app.cadenadefavors.profile.MyProfileEditFragment"
         android:label="fragment_my_profile_edit"
         tools:layout="@layout/fragment_my_profile_edit" />
     <fragment
         android:id="@+id/profileOpinionsFragment"
-        android:name="com.example.cadenadefavors.profile.ProfileOpinionsFragment"
+        android:name="com.app.cadenadefavors.profile.ProfileOpinionsFragment"
         android:label="fragment_profile_opinions"
         tools:layout="@layout/fragment_profile_opinions" >
         <argument
             android:name="pUser"
-            app:argType="com.example.cadenadefavors.models.User" />
+            app:argType="com.app.cadenadefavors.models.User" />
     </fragment>
 </navigation>
