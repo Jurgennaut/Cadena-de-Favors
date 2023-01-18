@@ -56,4 +56,5 @@
     <string name="transferir">Transfer</string>
     <string name="valoracio">Rating</string>
     <string name="afegir_oferta">Add offer</string>
+    <string name="correu_electr_nic_del_destinatari">Receiver email</string>
 </resources>
