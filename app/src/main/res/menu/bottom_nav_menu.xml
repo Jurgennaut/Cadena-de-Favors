@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"/>
+    <item android:id="@+id/transferFragment"
+        android:icon="@drawable/ic_doublearrow"
+        android:title="@string/fer_una_transferencia"/>
+    <item android:id="@+id/addOfferFragment"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Añadir favor"/>
+    <item android:id="@+id/myProfileOptionsFragment"
+        android:icon="@drawable/ic_baseline_tag_faces_24"
+        android:title="Tú"/>
+</menu>

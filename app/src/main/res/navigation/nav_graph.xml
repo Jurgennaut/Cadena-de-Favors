@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.cadenadefavors.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment" />
+        <argument
+            android:name="pUser"
+            app:argType="com.app.cadenadefavors.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOfferFragment"
+        android:name="com.app.cadenadefavors.AddOfferFragment"
+        android:label="Registrar favor"
+        tools:layout="@layout/fragment_addoffer" >
+        <argument
+            android:name="oldOffer"
+            app:argType="com.app.cadenadefavors.models.Offer" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.app.cadenadefavors.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.app.cadenadefavors.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.app.cadenadefavors.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_mainFragment_to_transferFragment"
+            app:destination="@id/transferFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/offerFragment"
+        android:name="com.app.cadenadefavors.OfferFragment"
+        android:label="fragment_offer"
+        tools:layout="@layout/fragment_offer" >
+        <argument
+            android:name="pOffer"
+            app:argType="com.app.cadenadefavors.models.Offer" />
+        <action
+            android:id="@+id/action_offerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_offerFragment_to_addOpinionFragment"
+            app:destination="@id/addOpinionFragment" />
+        <action
+            android:id="@+id/action_offerFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOpinionFragment"
+        android:name="com.app.cadenadefavors.AddOpinionFragment"
+        android:label="fragment_add_opinion"
+        tools:layout="@layout/fragment_add_opinion" >
+        <argument
+            android:name="pUser"
+            app:argType="com.app.cadenadefavors.models.User" />
+        <argument
+            android:name="pOffer"
+            app:argType="com.app.cadenadefavors.models.Offer" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfileOptionsFragment"
+        android:name="com.app.cadenadefavors.profile.MyProfileOptionsFragment"
+        android:label="fragment_my_profile_options"
+        tools:layout="@layout/fragment_my_profile_options" >
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_myFavorsFragment"
+            app:destination="@id/myFavorsFragment" />
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_myProfileEditFragment"
+            app:destination="@id/myProfileEditFragment" />
+        <action
+            android:id="@+id/action_myProfileOptionsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavorsFragment"
+        android:name="com.app.cadenadefavors.profile.MyFavorsFragment"
+        android:label="fragment_my_favors"
+        tools:layout="@layout/fragment_my_favors">
+        <action
+            android:id="@+id/action_mainFragment_to_offerFragment"
+            app:destination="@id/offerFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_myFavorsFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfileEditFragment"
+        android:name="com.app.cadenadefavors.profile.MyProfileEditFragment"
+        android:label="fragment_my_profile_edit"
+        tools:layout="@layout/fragment_my_profile_edit" />
+    <fragment
+        android:id="@+id/profileOpinionsFragment"
+        android:name="com.app.cadenadefavors.profile.ProfileOpinionsFragment"
+        android:label="fragment_profile_opinions"
+        tools:layout="@layout/fragment_profile_opinions" >
+        <argument
+            android:name="pUser"
+            app:argType="com.app.cadenadefavors.models.User" />
+    </fragment>
+</navigation>

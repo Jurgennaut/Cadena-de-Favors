@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CadenaDeFavors</string>
+    <string name="intro_password">Password</string>
+    <string name="btn_sign_in">Log In</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="welcome">Welcome !</string>
+    <string name="next">NEXT</string>
+    <string name="code">Code</string>
+    <string name="text_recoverpassword">We\'ve just send the code to your email</string>
+    <string name="password_forgotten_text">I\'ve forgot my password</string>
+    <string name="gotoregister_text">Register</string>
+    <string name="login_text">Enter your email and password</string>
+    <string name="intro_quantity">Amount</string>
+    <string name="transfer_activity_txt">Enter the amount and beneficiary\'s email</string>
+    <string name="transfer">Transfer</string>
+    <string name="generic_name">Name</string>
+    <string name="add_image">Add an image</string>
+    <string name="offer_image">Offer\'s image</string>
+    <string name="offer_title">Offer\'s title</string>
+    <string name="offer_description">Description</string>
+    <string name="offer_price">Price</string>
+    <string name="offer_category">Category</string>
+    <string name="offer_owner">Offerer</string>
+    <string name="fer_una_transferencia">Make a transfer</string>
+    <string name="logout">Log out</string>
+    <string name="el_meu_perfil">My profile</string>
+    <string name="home">Home</string>
+    <string name="Offers">Offers</string>
+    <string name="Opinions">Opinions</string>
+    <string name="info">+info</string>
+    <string name="intro_username">Username</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">Login failed</string>
+    <string name="afegir_imatge">Add image</string>
+    <string name="afegeix_una_oferta">Add offer</string>
+
+    <string-array name="categories_list">
+        <item>Choose the category</item>
+        <item>Food</item>
+        <item>Automotive</item>
+        <item>Computing</item>
+        <item>Gardening</item>
+    </string-array>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="edit_favor">Edit favor</string>
+    <string name="save_favor">Save favor</string>
+    <string name="inici">Home</string>
+    <string name="oferta">Offer</string>
+    <string name="registre">Register</string>
+    <string name="autenticacio">Log in</string>
+    <string name="recupera_contrasenya">Passwod recovery</string>
+    <string name="resultats">Results</string>
+    <string name="transferir">Transfer</string>
+    <string name="valoracio">Rating</string>
+    <string name="afegir_oferta">Add offer</string>
+    <string name="correu_electr_nic_del_destinatari">Receiver email</string>
+</resources>
