@@ -1,6 +1,8 @@
 package com.app.cadenadefavors
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.util.Log
@@ -10,6 +12,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -42,6 +45,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private var appEntries = 0
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
     val storage = Firebase.storage
@@ -79,6 +83,43 @@ class MainFragment : Fragment() {
                 return@setOnKeyListener true
             }
             false
+        }
+
+        val sharedPref = requireContext().getSharedPreferences("appEntries", Context.MODE_PRIVATE)
+        val sharedPref2 = requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        appEntries = sharedPref.getInt("appEntries",0)
+        appEntries++
+        saveAppEntries()
+
+        Log.d("UWU", appEntries.toString())
+        val rateLater = sharedPref2.getBoolean("rateLater", false)
+        Log.d("UWU2",rateLater.toString())
+        if(appEntries==2 || rateLater){
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Valora nuestra App")
+            builder.setMessage("¿Te gusta nuestra App? ¡Por favor, tómate un momento para valorarla en la Play Store!")
+            builder.setPositiveButton("Valorar ahora") { _, _ ->
+                val editor = sharedPref2.edit()
+                editor.putBoolean("rateLater", false)
+                editor.apply()
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://play.google.com/apps/test/com.app.cadenadefavors/1")
+                startActivity(intent)
+            }
+            builder.setNegativeButton("Más tarde") { _, _ ->
+                val editor = sharedPref2.edit()
+                editor.putBoolean("rateLater", true)
+                editor.apply()
+            }
+            builder.show()
+        }
+
+    }
+    private fun saveAppEntries() {
+        val sharedPref = requireContext().getSharedPreferences("appEntries", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putInt("appEntries", appEntries)
+            commit()
         }
     }
 
