@@ -24,6 +24,11 @@ import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 
 private const val REQUEST_CODE=42
+
+/**
+ * CLASSE QUE CONTROLA LA VISTA ACTIVITY_REGISTER,
+ * ON L'USUARI ES POT DONAR D'ALTA A L'APP
+ */
 class RegisterActivity : AppCompatActivity() {
 
     private var imgJpg:ByteArray?=null
@@ -54,6 +59,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize Firebase Auth
@@ -69,6 +77,9 @@ class RegisterActivity : AppCompatActivity() {
         setup()
     }
 
+    /**
+     * MANIPULA LA IMATGE INSERIDA PER L'USUARI
+     */
     override fun onActivityResult(requestCode:Int, resultCode: Int, data: Intent?){
         if (requestCode== REQUEST_CODE && resultCode==Activity.RESULT_OK){
             val takenImage=data?.extras?.get("data") as Bitmap
@@ -76,6 +87,10 @@ class RegisterActivity : AppCompatActivity() {
           super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+    /**
+     * CONFIGURA LA VISTA I ELS SEUS BOTONS
+     */
     private fun setup() {
         title = getString(R.string.registre)
 
@@ -120,6 +135,9 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * MOSTRA UN MISSATGE D'ALERTA A L'USUARI
+     */
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
@@ -129,17 +147,26 @@ class RegisterActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * INTENT A FRAGMENT_MAIN
+     */
     private fun showHome(email: String, provider: ProviderType) {
         val homeIntent = Intent(this, MainActivity2::class.java)
         startActivity(homeIntent)
     }
 
+    /**
+     * MOSTRA EL NOM DE L'USUARI QUE HA INICIAT SESSIÓ
+     */
     private fun nameUser(name: String) {
         val profileUpdates = userProfileChangeRequest {
             displayName = name
         }
     }
 
+    /**
+     * INSEREIX UN USUARI A LA BASE DE DADES
+     */
     private fun insertUserToDB(){
         Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
@@ -171,6 +198,10 @@ class RegisterActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
+
+    /**
+     * PUJA LA IMATGE PASSADA PER PARÀMETRE A L'STORAGE
+     */
     private fun uploadImageToStorage(data:ByteArray){
         val sRef: StorageReference =
             storage.reference.child("userImages/${auth.uid.toString()}/${auth.currentUser!!.email}")
@@ -181,6 +212,9 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * REDIMENSIONA LA IMATGE PASSADA PER PARÀMETRE
+     */
     fun redimensionarImagen(mBitmap: Bitmap, newWidth: Float, newHeigth: Float): Bitmap? {
         //Redimensionem
         val width = mBitmap.width

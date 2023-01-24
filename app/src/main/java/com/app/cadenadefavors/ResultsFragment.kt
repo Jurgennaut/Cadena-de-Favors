@@ -27,6 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [resultsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_RESULTS,
+ * ON ES MOSTREN ELS RESULTATS D'UNA CERCA
+ */
 class ResultsFragment(userEmail:String) : Fragment() {
 
     private var email=userEmail
@@ -39,10 +44,17 @@ class ResultsFragment(userEmail:String) : Fragment() {
 
     private val myAdapter: OfferRecyclerAdapter = OfferRecyclerAdapter()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +64,9 @@ class ResultsFragment(userEmail:String) : Fragment() {
         return view
     }
 
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //recyclerView = binding.recyclerView
         //chooseLayout()
@@ -60,10 +75,17 @@ class ResultsFragment(userEmail:String) : Fragment() {
         setupRecyclerView()
     }
 
+    /**
+     * ONDESTROYVIEW
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    /**
+     * CONFIGURA EL RECYCLERVIEW
+     */
     private fun setupRecyclerView() {
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
@@ -74,6 +96,10 @@ class ResultsFragment(userEmail:String) : Fragment() {
 
         getUserFavors();
     }
+
+    /**
+     * RECUPERA ELS FAVORS DE L'USUARI
+     */
     private fun getUserFavors(){
         var offers: MutableList<Offer> = arrayListOf()
         //generem el adapter

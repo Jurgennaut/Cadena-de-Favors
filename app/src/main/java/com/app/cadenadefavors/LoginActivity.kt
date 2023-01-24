@@ -12,10 +12,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+/**
+ * CLASSE QUE CONTROLA LA VISTA ACTIVITY_LOGIN,
+ * ON L'USUARI POT INICIAR SESSIÓ
+ */
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Thread.sleep(2000)
@@ -30,10 +37,16 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * ES CRIDA QUAN L'USUARI FA UN CALLBACK
+     */
     override fun onBackPressed() {
         finishAffinity()
     }
 
+    /**
+     * CONFIGURA LA VISTA I ELS BOTONS D'AQUESTA
+     */
     private fun setup() {
         title = getString(R.string.autenticacio)
 
@@ -74,6 +87,9 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * MOSTRA UN MISSATGE D'ALERTA A L'USUARI
+     */
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
@@ -83,16 +99,25 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * INTENT A ACTIVITY_MAIN2 (FRAGMENT MAIN COM A HOST)
+     */
     private fun showHome(email: String, provider: ProviderType) {
         val homeIntent = Intent(this, MainActivity2::class.java)
         startActivity(homeIntent)
     }
 
+    /**
+     * INTENT A ACTIVITY_REGISTER
+     */
     private fun showRegister() {
         val homeIntent = Intent(this, RegisterActivity::class.java)
         startActivity(homeIntent)
     }
 
+    /**
+     * INTENT A ACTIVITY_RECOVERPASSWORD
+     */
     private fun showPasswdRecov() {
         val homeIntent = Intent(this, RecoverPasswordActivity::class.java)
         startActivity(homeIntent)

@@ -13,6 +13,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
+/**
+ * CLASSE QUE CONTROLA LA VISTA ACTIVITY_LIST_OF_CHATS,
+ * ON L'USUARI VISUALITZA UNA LLISTA DE TOTES LES SEVES CONVERSACIONS
+ */
 class ListOfChatsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListOfChatsBinding
@@ -21,6 +25,9 @@ class ListOfChatsActivity : AppCompatActivity() {
     private var user = ""
     private var db = Firebase.firestore
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
@@ -52,6 +59,10 @@ class ListOfChatsActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * INICIALITZA LA VISTA AMB UNA LLISTA AMB LES
+     * CONVERSACIONS DE L'USUARI
+     */
     private fun initViews(){
 
         binding.listChatsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -82,6 +93,10 @@ class ListOfChatsActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * INTENT A ACTIVITY_CHAT, AMB LA INFORMACIÓ
+     * DEL XAT SELECCIONAT
+     */
     private fun chatSelected(chat: Chat){
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("chatId", chat.id)
@@ -89,6 +104,9 @@ class ListOfChatsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * CREA UN NOU XAT
+     */
     private fun newChat(email:String){
         val chatId = UUID.randomUUID().toString()
         val otherUser = email

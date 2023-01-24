@@ -39,6 +39,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AddOfferFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_ADDOFFER,
+ * ON L'USUARI POT AFEGIR OFERTES AL SEU PERFIL
+ */
 class AddOfferFragment : Fragment() {
 
 
@@ -82,6 +87,9 @@ class AddOfferFragment : Fragment() {
 
     private var storage = FirebaseStorage.getInstance()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -91,6 +99,9 @@ class AddOfferFragment : Fragment() {
         }
     }
 
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -119,6 +130,9 @@ class AddOfferFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         if(arguments?.isEmpty!! || arguments==null){
@@ -158,9 +172,9 @@ class AddOfferFragment : Fragment() {
 
     }
 
-
-
-
+    /**
+     * INSEREIX UNA OFERTA A LA BASE DE DADES
+     */
     private fun insertOfferToDB(offerImage:String, view:View){
         Log.d("TAG", "Cuack2 ${auth.currentUser?.email}")
 
@@ -212,6 +226,10 @@ class AddOfferFragment : Fragment() {
         }
 
     }
+
+    /**
+     * INFORMA A L'USUARI QUE L'OPERACIÓ HA ANAT BÉ
+     */
     private fun Ok(){
         Snackbar.make(
             binding.root,
@@ -220,6 +238,9 @@ class AddOfferFragment : Fragment() {
         ).setBackgroundTint(Color.parseColor("#79ab3c")).show()
     }
 
+    /**
+     * PUJA LA IMATGE PASSADA PER PARÀMETRE A L'STORAGE
+     */
     private fun uploadImageToStorage(data:ByteArray){
         val sRef: StorageReference =
             storage.reference.child("userImages/${auth.uid.toString()}/${data}")
@@ -230,6 +251,9 @@ class AddOfferFragment : Fragment() {
 
     }
 
+    /**
+     * REDIMENSIONA LA IMATGE PASSADA PER PARÀMETRE
+     */
     fun redimensionarImagen(mBitmap: Bitmap, newWidth: Float, newHeigth: Float): Bitmap? {
         //Redimensionem
         val width = mBitmap.width

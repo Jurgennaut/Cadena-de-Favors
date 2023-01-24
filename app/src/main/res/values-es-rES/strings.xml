@@ -57,4 +57,12 @@
     <string name="valoracio">Valoración</string>
     <string name="afegir_oferta">Añadir oferta</string>
     <string name="correu_electr_nic_del_destinatari">Correo electrónico del destinatario</string>
+    <string name="escribe_mensaje">Escribe tu mensaje</string>
+    <string name="enviar">Enviar</string>
+    <string name="chat">Chat</string>
+    <string name="email">Correo electrónico</string>
+    <string name="descripcio">Descripción</string>
+    <string name="preu">Precio</string>
+    <string name="titol">Título</string>
+    <string name="els_teus_favors">Tus favores</string>
 </resources>

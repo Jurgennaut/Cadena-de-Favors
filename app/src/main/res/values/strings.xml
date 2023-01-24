@@ -61,4 +61,12 @@
     <string name="valoracio">Valoració</string>
     <string name="afegir_oferta">Afegir oferta</string>
     <string name="correu_electr_nic_del_destinatari">Correu electrònic del destinatari</string>
+    <string name="escribe_mensaje">Escriu el teu missatge</string>
+    <string name="enviar">Enviar</string>
+    <string name="chat">Xat</string>
+    <string name="email">Correu electrònic</string>
+    <string name="descripcio">Descripció</string>
+    <string name="preu">Preu</string>
+    <string name="titol">Títol</string>
+    <string name="els_teus_favors">Els teus favors</string>
 </resources>

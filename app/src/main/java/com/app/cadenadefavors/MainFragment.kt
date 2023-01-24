@@ -32,6 +32,11 @@ import com.google.firebase.storage.ktx.storage
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_MAIN,
+ * LA VISTA PRINCIPAL DE L'APP
+ */
 class MainFragment : Fragment() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -55,9 +60,16 @@ class MainFragment : Fragment() {
 
     private val myAdapter: OfferRecyclerAdapter = OfferRecyclerAdapter()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,6 +80,9 @@ class MainFragment : Fragment() {
         return view
     }
 
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.inici)
@@ -123,6 +138,9 @@ class MainFragment : Fragment() {
         }
     }
 
+    /**
+     * CONFIGURA EL MENÚ PRINCIPAL
+     */
     private fun setupMenu(){
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -146,10 +164,17 @@ class MainFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    /**
+     * ONDESTROYVIEW
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    /**
+     * CONFIGURA EL RECYCLERVIEW
+     */
     private fun setupRecyclerView(){
 
         //Especifiquem que els fills del RV seran del mateix tamany i així optimitzem la seva creació
@@ -162,6 +187,10 @@ class MainFragment : Fragment() {
 
         getOffers()
     }
+
+    /**
+     * RECUPERA OFERTES DE LA BD
+     */
     private fun getOffers(){
         var offers: MutableList<Offer> = arrayListOf()
 
@@ -177,6 +206,9 @@ class MainFragment : Fragment() {
 
     }
 
+    /**
+     * INTENT A ACTIVITY_LOGIN
+     */
     private fun showLogIn() {
         val LogInIntent = Intent(context, LoginActivity::class.java)
         LogInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
