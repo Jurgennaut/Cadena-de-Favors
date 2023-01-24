@@ -26,15 +26,25 @@ private var currentFragment: String?= "ResultsFragment"
  * create an instance of this fragment.
  */
 
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_PROFILE,
+ * ON ES VISUALITZEN LES DADES DE L'USUARI
+ */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
     val args: ProfileFragmentArgs by navArgs()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +55,9 @@ class ProfileFragment : Fragment() {
 
     }
 
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.chatButton.setOnClickListener{
             Log.d("tag",args.pUser.Email)
@@ -77,6 +90,9 @@ class ProfileFragment : Fragment() {
         ft.commit()
     }
 
+    /**
+     * CONFIGURA EL MENÚ HORITZONTAL QUE FA DE SEPARADOR A LA VISTA
+     */
     private fun manageBarMenu(){
         binding.profileMenuBar.setOnItemSelectedListener{
             var fr : Fragment? =null
@@ -113,6 +129,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * ONDESTROYVIEW
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -23,6 +23,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [OfferFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_OFFER,
+ * ON ES MOSTREN LES OFERTES DE L'USUARI
+ */
 class OfferFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -33,6 +38,9 @@ class OfferFragment : Fragment() {
 
     val args: OfferFragmentArgs by navArgs()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,6 +49,9 @@ class OfferFragment : Fragment() {
         }
     }
 
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +61,10 @@ class OfferFragment : Fragment() {
         val view = binding.root
         return view
     }
+
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentOffer=args.pOffer
         val storageRef = FirebaseStorage.getInstance().reference
@@ -88,6 +103,9 @@ class OfferFragment : Fragment() {
             }
     }
 
+    /**
+     * ONDESTROYVIEW
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
