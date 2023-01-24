@@ -11,6 +11,13 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ * CLASSE QUE CONTROLA LA VISTA ACTIVITY_CHAT,
+ * ON L'USUARI VISUALITZA UNA LLISTA AMB TOTS
+ * ELS MISSATGES DE LA CONVERSACIÓ, ORDENATS
+ * CRONOLÒGICAMENT I ON POT ENVIAR MISSATGES A
+ * ALTRES USUARIS
+ */
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChatBinding
@@ -20,6 +27,9 @@ class ChatActivity : AppCompatActivity() {
 
     private var db = Firebase.firestore
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +57,10 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * INICIALITZA LA VISTA AMB UNA LLISTA AMB TOTS ELS MISSATGES DE LA
+     * CONVERSACIÓ, ORDENATS CRONOLÒGICAMENT
+     */
     private fun initViews(){
         binding.messagesRecylerView.layoutManager = LinearLayoutManager(this)
         binding.messagesRecylerView.adapter = MessageAdapter(user)
@@ -73,6 +87,9 @@ class ChatActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * ENVIA UN MISSATGE
+     */
     private fun sendMessage(){
         val message = Message(
             message = binding.messageTextField.text.toString(),

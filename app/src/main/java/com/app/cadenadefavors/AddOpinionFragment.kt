@@ -38,12 +38,20 @@ private lateinit var auth: FirebaseAuth
 
 val db = Firebase.firestore
 
+/**
+ * CLASSE QUE CONTROLA LA VISTA FRAGMENT_ADD_OPINION,
+ * ON L'USUARI POT PUNTUAR I COMENTAR EL SERVEI REBUT
+ * PER PART D'UN ALTRE USUARI
+ */
 class AddOpinionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     val args: AddOpinionFragmentArgs by navArgs()
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,6 +60,9 @@ class AddOpinionFragment : Fragment() {
         }
     }
 
+    /**
+     * ONCREATEVIEW
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,6 +73,9 @@ class AddOpinionFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * ONVIEWCREATED
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = storageRef.child(args.pUser.Photo)
@@ -81,6 +95,10 @@ class AddOpinionFragment : Fragment() {
             insertOpinionToDb();
         }
     }
+
+    /**
+     * INSEREIX UNA OPINIÓ A LA BASE DE DADES
+     */
     private fun insertOpinionToDb(){
 
         var puntuation=binding.ratingBar.rating.toString().toFloat()
@@ -114,6 +132,10 @@ class AddOpinionFragment : Fragment() {
 
 
     }
+
+    /**
+     * INFORMA A L'USUARI QUE TOT HA ANAT BÉ
+     */
     private fun Ok(){
         Snackbar.make(
             binding.root,

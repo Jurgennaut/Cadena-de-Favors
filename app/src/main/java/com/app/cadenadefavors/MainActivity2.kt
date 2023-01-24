@@ -15,11 +15,18 @@ import com.google.firebase.ktx.Firebase
 enum class ProviderType {
     BASIC
 }
+
+/**
+ * CLASSE CONTENIDORA DE FRAGMENTS
+ */
 class MainActivity2 : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMain2Binding
     private lateinit var auth: FirebaseAuth
 
+    /**
+     * ONCREATE
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,12 +46,19 @@ class MainActivity2 : AppCompatActivity() {
         setupBottomNavMenu(navController)
 
     }
+
+    /**
+     * CONFIGURA LA BARRA-MENÚ DE LA PART INFERIOR DE LA PANTALLA
+     */
     private fun setupBottomNavMenu(navController: NavController){
         val bottomNav=binding.bottomNavView
 
         bottomNav?.setupWithNavController(navController)
     }
 
+    /**
+     * INFOMÀGIA
+     */
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
